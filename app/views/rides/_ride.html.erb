@@ -5,7 +5,7 @@
         <td>
           
           
-          <% if !current_user %>
+          <% if User.find(ride.user_id) != current_user %>
             <%= User.find(ride.user_id).name.humanize %> 
             is 
           <% else %>
