@@ -1,0 +1,18 @@
+<li>
+  <table> 
+  <tr>
+    <td width="100px"><%= gravatar_for user, :size => 20 %></td>
+    <td width="100px" class="rt"><%= link_to user.name.humanize, user %></td>
+    
+  <% if !current_user.nil? %>
+    <% if current_user.admin? %>
+      <td class="mid" width="75px"><%= button_to "edit",edit_user_path(user), :method => :get %></td>
+      <td class="mid" width="75px"><%= button_to "delete", user, :method => :delete, 
+                              :confirm => "Are you sure?",
+                              :title => "Delete #{user.name}"%></td> 
+    <% end %>
+  <% end %>
+  <td></td>
+  </tr>
+  </table>
+</li>

@@ -1,0 +1,18 @@
+<%= form_for @ride do |f| %>
+  
+  <%= render 'shared/error_messages_rides', :object => f.object %>
+  
+  <div class="field">
+    <%= f.label :origin, "City of Origin" %><br/>
+    <%= f.text_area :origin %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :destination, "City of Destination" %><br />
+    <%= f.text_area :destination %>
+  </div>
+ <div class="actions">
+    <%= f.submit "Update" %>
+  </div>
+  
+<% end %>

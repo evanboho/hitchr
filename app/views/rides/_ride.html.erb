@@ -1,0 +1,41 @@
+<tr>
+  <td class="ride">
+    <table>
+      <tr>
+        <td>
+          
+          
+          <% if !current_user %>
+            <%= User.find(ride.user_id).name.humanize %> 
+            is 
+          <% else %>
+            I am
+          <% end %>
+          driving from
+          <strong><%= ride.origin.humanize %></strong> to 
+          <strong><%= ride.destination.humanize %></strong> 
+          on ...<%= ride.date %>
+        </td>
+        <td>
+          
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="alt">
+            Posted 
+            <%= time_ago_in_words(ride.created_at) %> 
+            ago.
+          </div>
+        </td>
+        <td>
+          <% if !current_user.nil? %>
+            <% if current_user.admin? %>
+              <%= button_to "Delete", ride, :method => :delete %>
+            <% end %>
+          <% end %>
+         </td> 
+      </tr>
+    </table>
+  </td>
+</tr>

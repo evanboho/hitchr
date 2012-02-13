@@ -1,0 +1,15 @@
+<% provide(:title, "Home") %>
+
+<% unless signed_in? %>
+  <h4>Sharing is caring. Carsharing is carcaring.</h4><br />
+  <%= link_to "Sign up now!", signup_path, :class => "signup_button round" %><br/>
+  <%= link_to "Sign in", signin_path, :class => "signin_button round" %>
+<% else %>
+  <table class="front" summary="For signed-in users">
+    <tr>
+      <td class="main">
+        
+      </td>
+    </tr>
+  </table>
+<% end %>
