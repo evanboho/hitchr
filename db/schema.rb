@@ -22,17 +22,17 @@ ActiveRecord::Schema.define(:version => 20120212235529) do
     t.datetime "updated_at",  :null => false
   end
 
-  add_index "rides", ["user_id", "date"], :name => "index_rides_on_user_id_and_date"
+  add_index "rides", ["user_id", "created_at"], :name => "index_rides_on_user_id_and_created_at"
 
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "nickname"
     t.string   "email"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
     t.string   "encrypted_password"
     t.string   "salt"
-    t.boolean  "admin"
+    t.boolean  "admin",              :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
