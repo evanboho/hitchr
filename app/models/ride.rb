@@ -25,6 +25,8 @@ class Ride < ActiveRecord::Base
   
   default_scope :order => 'rides.date DESC'
   
+  
+  
 #  before_save :check_date
   
 #  def check_date

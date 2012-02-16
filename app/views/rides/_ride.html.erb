@@ -4,9 +4,9 @@
       <tr>
         <td>
           
-          <%= ride.id %>
           <% if User.find(ride.user_id) != current_user %>
-            <%= User.find(ride.user_id).firstname.humanize %> 
+            <%= link_to "#{ride.user.firstname} #{ride.user.lastname.to(0)}", 
+              ride.user %> 
             is 
           <% else %>
             I am
@@ -15,6 +15,12 @@
           <strong><%= ride.origin.humanize %></strong> to 
           <strong><%= ride.destination.humanize %></strong> 
           on <%= ride.date.to_formatted_s(:short) %>.
+        </td>
+        <td>
+          <% if current_user == ride.user %>
+            <%= link_to "Edit", edit_ride_path %>
+          <% end %>
+        </td> 
 
         </td>
         <td>
@@ -31,7 +37,7 @@
         </td>
         <td>
           <% if !current_user.nil? %>
-            <% if !current_user.admin? %>
+            <% if current_user.admin? || current_user == ride.user %>
               <%= button_to "Delete", ride, :method => :delete %>
             <% end %>
           <% end %>

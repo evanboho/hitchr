@@ -4,7 +4,7 @@
   <tr>
     <td class="main">
       <h1>
-        <%= "#{@user.firstname.humanize} #{@user.lastname.at(0).humanize}" %><br/>
+        <%= "#{@user.firstname.humanize} #{@user.lastname.at(0).humanize}" %><br/><br/>
         <%= gravatar_for @user, :size => 50 %>
       </h1>
       
@@ -27,6 +27,9 @@
         </table>
         <%= will_paginate @rides %>
       <% end %>
+    <%= Date.today.to_s %>
+    <%= Date.today %><%= Time.local(2000,"jan",1,20,15,1) %>
     </td>
   </tr>
 </table>
+

@@ -144,6 +144,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activesupport
   annotate (~> 2.4.0.beta)
   capybara
   coffee-rails (~> 3.2.1)
