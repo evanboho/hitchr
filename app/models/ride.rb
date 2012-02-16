@@ -25,13 +25,4 @@ class Ride < ActiveRecord::Base
   
   default_scope :order => 'rides.date DESC'
   
-  
-  
-#  before_save :check_date
-  
-#  def check_date
-#    if !ride.date.acts_like_date?
-#    redirect_to new_ride_path, :notice => "Date format incorrect."
-#  end
-  
 end

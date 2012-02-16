@@ -10,8 +10,11 @@
   <%= f.label :destination, "  To:" %>
   <%= f.text_field :destination %> 
   </td><td>
-  <%= f.label :date, "  On:" %>
-  <%= f.text_field :date %>
+  <%= f.label :date, "On:" %>
+  <%= f.date_select(:date, :order => [:day, :month] ) %> 
+  </td></tr>
+  <tr><td>
+  
   </td></tr>
   </table>
 </div>

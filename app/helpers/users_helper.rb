@@ -7,10 +7,6 @@ module UsersHelper
                                             :gravatar => options)
   end
   
-  def username(user)
-    if user.name.blank?
-      user.name = "no name"
-    end
-  end
+  
     
 end

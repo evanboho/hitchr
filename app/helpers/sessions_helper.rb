@@ -9,6 +9,14 @@ module SessionsHelper
     @current_user ||= user_from_remember_token
   end
   
+  def username
+      if !@user.nil?
+        "#{@user.firstname.humanize} #{@user.lastname.to(0).humanize}"
+      else
+        "#{@ride.user.firstname.humanize} #{@ride.user.lastname.to(0).humanize}"
+    end
+  end
+  
   def admin?
     current_user.admin
   end
