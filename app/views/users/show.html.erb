@@ -1,14 +1,10 @@
-<% if @user.name != nil 
-   provide :title, @user.name 
-   else 
-   provide :title, "no name"
-   end %>
+<% provide :title, @user.firstname %>
 
 <table class="profile" summary="Profile information">
   <tr>
     <td class="main">
       <h1>
-        <%= @user.name.humanize	 %><br/>
+        <%= "#{@user.firstname.humanize} #{@user.lastname.at(0).humanize}" %><br/>
         <%= gravatar_for @user, :size => 50 %>
       </h1>
       
@@ -16,7 +12,7 @@
    
     </td>
     <td class="sidebar round">
-      <strong>screen name:</strong> <%= @user.nickname %><br />
+      <strong>Name: </strong> <%= @user.firstname %><br />
       <strong>URL</strong> <%= link_to user_path, @user %><br />
       <%= link_to "edit profile", edit_user_path(@user) %><br />
       <!--<td class="mid"><%= link_to "delete", @user, :method => :delete %></td>-->
@@ -24,7 +20,7 @@
     </td> 
   </tr>
   <tr>
-    <td>
+    <td class="rides" colspan="2">
       <% unless @user.rides.empty? %>
         <table class="rides" summary="User rides">
           <%= render @rides %>

@@ -160,7 +160,8 @@ td.sidebar {
 }
 
 div.field, div.actions {
-  margin-bottom: 10px;
+  text-align: bottom;
+  margin-bottom: 7px;
   font-size: 14px;
 }
 
@@ -303,6 +304,6 @@ form.new_ride {
 }
 
 form.new_ride textarea {
-  height: 1em;
+  height: 10em;
   margin-bottom: 0;
 }

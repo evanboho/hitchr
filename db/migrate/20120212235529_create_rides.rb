@@ -1,13 +1,16 @@
 class CreateRides < ActiveRecord::Migration
+  
   def change
     create_table :rides do |t|
       t.string :origin
       t.string :destination
-      t.time :date
+      t.date :date
+      t.time :time
+      t.string :message
       t.integer :user_id
 
       t.timestamps
     end
-    add_index :rides, [:user_id, :created_at]
+    add_index :rides, [:origin, :destination, :date]
   end
 end

@@ -1,5 +1,10 @@
 <% provide(:title, "Post ride") %>
 
-<h3 class="ride"><%= "Where to, #{current_user.name.humanize}?"%></h3>
+<h3 class="ride"><%= "Where to, #{current_user.firstname.humanize}?"%></h3>
 
-<%= render 'shared/ride_form' %>
+<%= form_for @ride do |f| %>
+  <%= render 'shared/ride_form', :f => f %>
+  <div class="actions">
+    <%= f.submit "Post Ride" %>
+  </div>
+<% end %>

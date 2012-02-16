@@ -10,25 +10,24 @@
 #  updated_at         :datetime        not null
 #  encrypted_password :string(255)
 #  salt               :string(255)
-#  admin              :boolean
+#  admin              :boolean         default(FALSE)
 #
 
 require 'digest/hmac'
 
 class User < ActiveRecord::Base
   attr_accessor :password
-  attr_accessible :name, :email, :nickname, :password, :password_confirmation
+  attr_accessible :firstname, :lastname, :email, :password, :password_confirmation
   # has_secure_password
   
   has_many :rides, :dependent => :destroy
   
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   
-  validates :name, :presence => true,
-                   :length   => { :maximum => 50 }
-  
-  # validates :nickname  :presence   => true,
-                       # :uniqueness => { :case_sensitive => false }
+  validates :firstname, :presence => true,
+                   :length   => { :maximum => 20 }
+  validates :lastname, :presence => true,
+                   :length   => { :maximum => 20 }                   
   
   validates :email, :presence   => true, 
                     :format     => { :with => email_regex },
@@ -38,7 +37,7 @@ class User < ActiveRecord::Base
   
   validates :password, :presence     => true,
                        :confirmation => true,  
-                       :length       => { :within => 1..10 }
+                       :length       => { :within => 6..12 }
   
   before_save :encrypt_password
   

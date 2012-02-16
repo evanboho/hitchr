@@ -10,7 +10,7 @@
 #  updated_at         :datetime        not null
 #  encrypted_password :string(255)
 #  salt               :string(255)
-#  admin              :boolean
+#  admin              :boolean         default(FALSE)
 #
 
 require 'spec_helper'

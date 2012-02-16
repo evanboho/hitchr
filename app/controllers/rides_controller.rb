@@ -5,20 +5,34 @@ class RidesController < ApplicationController
     @rides = Ride.all
   end
 
+  def show
+    @ride = Ride.find(params[:id])
+    @title = "#{@ride.origin} to #{@ride.destination}"
+  end
+  
   def new
     @ride = Ride.new
   end
-
-  def show
+  
+  def edit
+    @ride = current_user.rides.build(params[:ride])
+    if @ride.save
+      flash[:success] = "Ride created!"
+    else
+      render 'edit'
+    end
   end
+
+  
   
   def create
+    # if current_user.rides.date.acs_like_date?
     @ride = current_user.rides.build(params[:ride])
     if @ride.save
       flash[:success] = "Ride created!"
       redirect_to rides_path
     else
-      render 'ride_path'
+      render 'new'
     end
   end
   

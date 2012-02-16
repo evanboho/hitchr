@@ -1,0 +1,12 @@
+<%= gravatar_for @ride.user, :size => 50 %>
+
+<%= @ride.user.firstname.humanize %> 
+  is driving from 
+  <%= @ride.origin %> 
+  to 
+  <%= @ride.destination %>
+  on 
+  <%= @ride.date.to_formatted_s(:short) %><br /><br />
+<% unless @ride.message.nil? %>
+  "<%= @ride.message %>"
+<% end %>

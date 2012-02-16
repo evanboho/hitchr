@@ -1,13 +1,15 @@
 Network::Application.routes.draw do
   resources :users
   resources :sessions, :only => [:new, :create, :destroy]
-  resources :rides, :only => [:new, :create, :destroy]
+  resources :rides
   
   root :to => 'pages#home'
   
   # get '/sessions'
   
   get '/rides/new'
+  match '/rides/edit' => 'Rides#edit'
+  get '/rides/show'
   
   match '/rides' => 'rides#index'
   match '/home' => 'pages#home'
@@ -44,10 +46,6 @@ Network::Application.routes.draw do
   # get "pages/help"
   
   match '/help' => "Pages#help"
-  
-  # get "pages/headers"
-  
-  match '/headers' => "Pages#headers"
   
   # get "pages/signin"
   

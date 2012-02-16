@@ -5,21 +5,24 @@
 #   gem 'sqlite3'
 development:
   adapter: postgresql
-  database: db/development
+  database: hitchr_development
   pool: 5
   timeout: 5000
+  template: template_postgis
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   adapter: postgresql
-  database: db/test
+  database: hitchr_test
   pool: 5
   timeout: 5000
+  template: template_postgis
 
 production:
   adapter: postgresql
-  database: db/production
+  database: hitchr_production
   pool: 5
   timeout: 5000
+  template: template_postgis

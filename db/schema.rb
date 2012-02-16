@@ -16,17 +16,19 @@ ActiveRecord::Schema.define(:version => 20120212235529) do
   create_table "rides", :force => true do |t|
     t.string   "origin"
     t.string   "destination"
-    t.time     "date"
+    t.date     "date"
+    t.time     "time"
+    t.string   "message"
     t.integer  "user_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
 
-  add_index "rides", ["user_id", "created_at"], :name => "index_rides_on_user_id_and_created_at"
+  add_index "rides", ["origin", "destination", "date"], :name => "index_rides_on_origin_and_destination_and_date"
 
   create_table "users", :force => true do |t|
-    t.string   "name"
-    t.string   "nickname"
+    t.string   "firstname"
+    t.string   "lastname"
     t.string   "email"
     t.datetime "created_at",                            :null => false
     t.datetime "updated_at",                            :null => false
@@ -36,6 +38,5 @@ ActiveRecord::Schema.define(:version => 20120212235529) do
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-  add_index "users", ["nickname"], :name => "index_users_on_nickname", :unique => true
 
 end

@@ -1,18 +1,21 @@
-<%= form_for @ride do |f| %>
-  
-  <%= render 'shared/error_messages_rides', :object => f.object %>
-  
-  <div class="field">
-    <%= f.label :origin, "City of Origin" %><br/>
-    <%= f.text_field :origin %>
-  </div>
-  
-  <div class="field">
-    <%= f.label :destination, "City of Destination" %><br />
-    <%= f.text_field :destination %>
-  </div>
- <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
-  
-<% end %>
+<%= render 'shared/error_messages_rides', :object => f.object %>
+<div class="field">
+  <table>
+  <tr><td>
+  </td></tr>
+  <tr><td>
+  <%= f.label :origin, "From:" %>
+  <%= f.text_field :origin %> 
+  </td><td>
+  <%= f.label :destination, "  To:" %>
+  <%= f.text_field :destination %> 
+  </td><td>
+  <%= f.label :date, "  On:" %>
+  <%= f.text_field :date %>
+  </td></tr>
+  </table>
+</div>
+<div class="textarea">
+  <%= f.label :message, "More info" %><br/>
+  <%= f.text_area :message %>
+</div>

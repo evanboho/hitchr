@@ -2,7 +2,7 @@
   <table> 
   <tr>
     <td width="100px"><%= gravatar_for user, :size => 20 %></td>
-    <td width="100px" class="rt"><%= link_to user.name.humanize, user %></td>
+    <td width="100px" class="rt"><%= link_to "#{user.firstname.humanize} #{user.lastname.at(0)}", user %></td>
     
   <% if !current_user.nil? %>
     <% if current_user.admin? %>
