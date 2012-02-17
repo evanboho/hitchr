@@ -1,7 +1,7 @@
 <% provide :title, "edit ride" %>
 
 <h2>Edit ride</h2>
-<% @ride = Ride.find(1) %>
+<% @ride = Ride.find(params[:id]) %>
 <%= form_for(@ride) do |f| %>
   <%= render 'shared/ride_form', :f => f %>
   <div class="actions">

@@ -2,14 +2,18 @@
   <table> 
   <tr>
     <td width="100px"><%= gravatar_for user, :size => 20 %></td>
-    <td width="100px" class="rt"><%= link_to "#{user.firstname.humanize} #{user.lastname.at(0)}", user %></td>
+    <td width="100px" class="rt"><%= link_to username(user), user %></td>
     
   <% if !current_user.nil? %>
-    <% if current_user.admin? %>
-      <td class="mid" width="75px"><%= button_to "edit",edit_user_path(user), :method => :get %></td>
-      <td class="mid" width="75px"><%= button_to "delete", user, :method => :delete, 
+    <% if user == current_user || current_user.admin? %>
+      <td class="mid" width="75px">
+        <%= button_to "edit",edit_user_path(user), :method => :get %></td>
+      <% if current_user.admin? %>
+      <td class="mid" width="75px">
+        <%= button_to "delete", user, :method => :delete, 
                               :confirm => "Are you sure?",
-                              :title => "Delete #{user.name}"%></td> 
+                              :title => "Delete #{username(user)}"%></td> 
+      <% end %>
     <% end %>
   <% end %>
   <td></td>

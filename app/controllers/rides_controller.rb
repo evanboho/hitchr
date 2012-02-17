@@ -1,17 +1,21 @@
 class RidesController < ApplicationController
   before_filter :authenticate, :only => [:new, :create, :destroy]
+  before_filter :get_ride, :only => [:show, :update]
   
   def index
     @rides = Ride.paginate(:page => params[:page], :per_page => 5)
   end
 
   def show
-    @ride = Ride.find(params[:id])
     @title = "#{@ride.origin} to #{@ride.destination}"
   end
   
   def new
     @ride = Ride.new
+  end
+  
+  def get_ride
+    @ride = Ride.find(params[:id])
   end
   
   def edit
@@ -24,7 +28,6 @@ class RidesController < ApplicationController
   end
 
   def update
-    @ride = User.find(params[:id])
     if @ride.update_attributes(params[:ride])
       flash[:success] = "Ride updated."
       redirect_to @ride

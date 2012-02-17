@@ -8,7 +8,7 @@
     </td>
   </tr>
     <td>
-      <%= username %> 
+      <%= username(@ride.user) %> 
   is driving from 
   <%= @ride.origin %> 
   to 
@@ -24,4 +24,19 @@
       <% end %>
     </td>
   </tr>
+  <tr>
+    <td>
+      <%= "Other rides from #{@ride.origin}:" %>
+    </td>
+  </tr>
+  <% Ride.where(:origin => @ride.origin).each do |ride| %>
+    <tr>
+      <td> 
+        <%= username(@ride.user) %> is going from 
+        <%= link_to "#{ride.origin} to #{ride.destination}", ride %>
+        on 
+        <%= ride.date.to_formatted_s(:long) %>
+      </td>
+    </tr>
+  <% end %>
 </table>

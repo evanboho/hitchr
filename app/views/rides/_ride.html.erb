@@ -4,9 +4,8 @@
       <tr>
         <td>
           
-          <% if User.find(ride.user_id) != current_user %>
-            <%= link_to "#{ride.user.firstname} #{ride.user.lastname.to(0)}", 
-              ride.user %> 
+          <% if User.find(ride.user) != current_user %>
+            <%= link_to username(ride.user), ride.user %> 
             is 
           <% else %>
             I am
@@ -21,7 +20,7 @@
         </td>
         <td>
           <% if current_user == ride.user %>
-            <%= link_to "Edit", edit_ride_path %>
+            <%= link_to "Edit", edit_ride_path(ride) %>
           <% end %>
         </td> 
 
