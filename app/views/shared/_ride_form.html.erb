@@ -6,10 +6,13 @@
   <tr><td>
   <%= f.label :origin, "From:" %>
   <%= f.text_field :origin %> 
+  <%= select_tag(:originstate, options_for_select([['IL', 1], ['WI', 2]])) %>
   </td><td>
   <%= f.label :destination, "  To:" %>
   <%= f.text_field :destination %> 
-  </td><td>
+  <%= select_tag(:originstate, options_for_select([['IL', 1], ['WI', 2]])) %>
+  </td></tr>
+  <tr><td>
   <%= f.label :date, "On:" %>
   <%= f.date_select(:date, :order => [:day, :month] ) %> 
   </td></tr>
