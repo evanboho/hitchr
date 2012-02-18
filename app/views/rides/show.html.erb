@@ -3,7 +3,7 @@
     <td>
       <%= gravatar_for @ride.user, :size => 50 %>
     </td>
-    <td>
+    <td colspan="2">
       <%= link_to "Back to all rides", rides_path %>
     </td>
   </tr>
@@ -12,7 +12,14 @@
   is driving from <%= "#{@ride.origin}, #{@ride.originstate} 
                        to #{@ride.destination}, #{@ride.destinationstate}"%>
   on <%= @ride.date.to_formatted_s(:long) %>
-  at <%= @ride.time %>
+  at <strong><%= @ride.time.hour %> 
+  <% if @ride.time.hour < 12 %>
+  am
+  <% else %>
+  pm
+  <% end %></strong>
+    </td>
+    <td>
     </td>
     <% if @ride.user == current_user %>
       <td>
@@ -31,20 +38,6 @@
  </tr>
  <tr>
  </tr>
- <tr>
-    <td>
-      <%= "All rides from #{@ride.origin}:" %>
-    </td>
-  </tr>
-  <% Ride.where(:origin => @ride.origin.humanize).each do |ride| %>
-    <tr>
-      <td> 
-        <%= username(@ride.user) %> is going from 
-        <%=  "#{ride.origin}, #{ride.originstate} 
-          to #{ride.destination}, #{ride.destinationstate}" %>
-        on 
-        <%= link_to ride.date.to_formatted_s(:long), ride %>
-      </td>
-    </tr>
-  <% end %>
+ 
+  
 </table>

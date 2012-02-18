@@ -1,0 +1,11 @@
+<% Ride.where(:origin => @ride.origin.humanize).each do |ride| %>
+    <tr>
+      <td> 
+        <%= username(@ride.user) %> is going from 
+        <%=  "#{ride.origin}, #{ride.originstate} 
+          to #{ride.destination}, #{ride.destinationstate}" %>
+        on 
+        <%= link_to ride.date.to_formatted_s(:long), ride %>
+      </td>
+    </tr>
+  <% end %>

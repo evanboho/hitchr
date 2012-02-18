@@ -1,15 +1,10 @@
 <tr>
-  <td class="ride">
-    <table>
+  <td class="rides">
+    <table class="rides">
       <tr>
-        <td>
-          <% if User.find(ride.user) != current_user %>
-            <%= link_to username(ride.user), ride.user %> 
-            is 
-          <% else %>
-            I am
-          <% end %>
-          driving from
+        <td class="ride">
+          <%= link_to username(ride.user), ride.user %> 
+          is driving from
           <strong>
             <%= "#{ride.origin}, #{ride.originstate}" %>
           </strong> 
@@ -17,35 +12,35 @@
           <strong>
             <%= "#{ride.destination}, #{ride.destinationstate}" %>
           </strong> 
-          on <%= link_to ride.date.to_formatted_s(:long), ride %>.
+          on <%= ride.date.to_formatted_s(:long) %>.
         </td>
         <td>
-          <% if current_user == ride.user %>
-            <%= link_to "Edit", edit_ride_path(ride) %>
-          <% end %>
+          <%= link_to "Show ride", ride %>
+          
         </td> 
-
+        <td class="alt timestamp">
+          
+            Posted 
+            <%= time_ago_in_words(ride.created_at) %> 
+            ago.
+          
         </td>
+
         <td>
           
         </td>
       </tr>
-      <tr>
-        <td>
-          <div class="alt">
-            Posted 
-            <%= time_ago_in_words(ride.created_at) %> 
-            ago.
-          </div>
-        </td>
-        <td>
-          <% if !current_user.nil? %>
-            <% if current_user.admin? || current_user == ride.user %>
-              <%= button_to "Delete", ride, :method => :delete %>
-            <% end %>
-          <% end %>
-         </td> 
-      </tr>
+      <% if !current_user.nil? %>
+      <% if current_user.admin? || current_user == ride.user %>
+        <tr>
+          <td>
+            <%= link_to "Edit", edit_ride_path(ride) %>
+            <%= button_to "Delete", ride, :method => :delete, :confirmation => "Are you sure?" %>
+          </td> 
+        </tr>
+      <% end %>
+      <% end %>
+       
     </table>
   </td>
 </tr>

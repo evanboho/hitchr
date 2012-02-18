@@ -42,9 +42,10 @@ class Ride < ActiveRecord::Base
   def self.search(search)
     if search
       # find(:all, :conditions => {'origin LIKE ? || destination LIKE ?', "%#{search}%", "%#{search}%"})
-      where('origin LIKE ?', "%#{search.titleize}%")
+      rides = Ride.where(:date => Date.today..Date.today + 14)
+      rides = rides.where('origin LIKE ?', "%#{search.titleize}%")
     else
-      find(:all)
+      where(:date => Time.now)
     end
   end
   

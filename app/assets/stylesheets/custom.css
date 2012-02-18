@@ -162,7 +162,7 @@ td.sidebar {
 div.field, div.actions {
   text-align: bottom;
   margin-bottom: 7px;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 div.fieldcenter {
@@ -258,11 +258,12 @@ h1.rides {
 }
 
 table.rides {
-  margin-top: 1em;
+  margin-top: 0em;
 }
 
 table.rides tr {
-  height: 70px;
+  height: 5px;
+  color: #000;
 }
 
 table.rides tr td.gravatar {
@@ -274,10 +275,11 @@ table.rides tr td.gravatar {
 table.rides tr td.ride {
   border-top: 1px solid #ccc;
   vertical-align: top;
-  padding-top: 10px;
+  font-size: 10px
+  padding-top: 0px;
 }
 
-table.rides tr td.micropost span.timestamp {
+table.rides tr td.timestamp {
   display: block;
   font-size: 85%;
   color: #666;
