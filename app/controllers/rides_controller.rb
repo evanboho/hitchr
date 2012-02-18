@@ -3,7 +3,7 @@ class RidesController < ApplicationController
   before_filter :get_ride, :only => [:show, :update]
   
   def index
-    @rides = Ride.paginate(:page => params[:page], :per_page => 5)
+      @rides = Ride.search(params[:search]) #.paginate(:page => params[:page], :per_page => 5)
   end
 
   def show
@@ -12,10 +12,15 @@ class RidesController < ApplicationController
   
   def new
     @ride = Ride.new
+    @ride.time = "9"
   end
   
   def get_ride
     @ride = Ride.find(params[:id])
+  end
+  
+  def find
+    # @rides = Ride.where(:origin => "Chicago").paginate(:page => params[:page], :per_page => 5)
   end
   
   def edit
@@ -48,10 +53,13 @@ class RidesController < ApplicationController
     end
   end
   
+   
+  
   def destroy
     Ride.find(params[:id]).destroy
     flash[:success] = "Ride deleted"
     redirect_to rides_path
   end
 
+  
 end

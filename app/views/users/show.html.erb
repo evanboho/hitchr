@@ -14,6 +14,7 @@
     <td class="sidebar round">
       <strong>Name: </strong> <%= @user.firstname %><br />
       <strong>URL</strong> <%= link_to user_path, @user %><br />
+      Member since <%= "#{time_ago_in_words(@user.created_at)} ago." %> <br />
       <%= link_to "edit profile", edit_user_path(@user) %><br />
       <!--<td class="mid"><%= link_to "delete", @user, :method => :delete %></td>-->
       <% if @user.admin == true %>admin<% end %>
@@ -24,8 +25,9 @@
       <% unless @user.rides.empty? %>
         <table class="rides" summary="User rides">
           <%= render @rides %>
+           
         </table>
-        <%= will_paginate @rides %>
+       
       <% end %>
     <%= Date.today.to_s %>
     <%= Date.today %><%= Time.local(2000,"jan",1,20,15,1) %>

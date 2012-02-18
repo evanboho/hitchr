@@ -1,8 +1,8 @@
 <% provide(:title, "Home") %>
 
-<% unless signed_in? %>
-  <h4>Sharing is caring. Carsharing is carcaring.</h4><br />
-  <%= link_to "See rides!", rides_path, :class => "see_rides_button round" %><br />
+<h4>Sharing is caring. Carsharing is carcaring.</h4><br />
+<%= link_to "See rides!", rides_path, :class => "see_rides_button round" %><br />
+<% unless signed_in? %>  
   <%= link_to "Sign up now!", signup_path, :class => "signup_button round" %><br/>
   <%= link_to "Sign in", signin_path, :class => "signin_button round" %>
 <% else %>

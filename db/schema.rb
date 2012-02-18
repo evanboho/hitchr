@@ -15,16 +15,19 @@ ActiveRecord::Schema.define(:version => 20120212235529) do
 
   create_table "rides", :force => true do |t|
     t.string   "origin"
+    t.string   "originstate"
     t.string   "destination"
+    t.string   "destinationstate"
     t.date     "date"
     t.time     "time"
     t.string   "message"
     t.integer  "user_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
-  add_index "rides", ["origin", "destination", "date"], :name => "index_rides_on_origin_and_destination_and_date"
+  add_index "rides", ["date"], :name => "index_rides_on_date"
+  add_index "rides", ["origin"], :name => "index_rides_on_origin"
 
   create_table "users", :force => true do |t|
     t.string   "firstname"

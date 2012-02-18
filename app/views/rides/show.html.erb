@@ -8,34 +8,42 @@
     </td>
   </tr>
     <td>
-      <%= username(@ride.user) %> 
-  is driving from 
-  <%= @ride.origin %> 
-  to 
-  <%= @ride.destination %>
-  on 
-  <%= @ride.date.to_formatted_s(:short) %><br /><br />
+      <%= link_to username(@ride.user), @ride.user %> 
+  is driving from <%= "#{@ride.origin}, #{@ride.originstate} 
+                       to #{@ride.destination}, #{@ride.destinationstate}"%>
+  on <%= @ride.date.to_formatted_s(:long) %>
+  at <%= @ride.time %>
     </td>
+    <% if @ride.user == current_user %>
+      <td>
+        <%= link_to "edit", edit_ride_path(@ride) %>
+      </td>
+    <% end %>
   </tr>
   <tr>
     <td>
       <% unless @ride.message.nil? %>
         "<%= @ride.message %>"
       <% end %>
+    <br />
+    <br />
     </td>
-  </tr>
-  <tr>
+ </tr>
+ <tr>
+ </tr>
+ <tr>
     <td>
-      <%= "Other rides from #{@ride.origin}:" %>
+      <%= "All rides from #{@ride.origin}:" %>
     </td>
   </tr>
-  <% Ride.where(:origin => @ride.origin).each do |ride| %>
+  <% Ride.where(:origin => @ride.origin.humanize).each do |ride| %>
     <tr>
       <td> 
         <%= username(@ride.user) %> is going from 
-        <%= link_to "#{ride.origin} to #{ride.destination}", ride %>
+        <%=  "#{ride.origin}, #{ride.originstate} 
+          to #{ride.destination}, #{ride.destinationstate}" %>
         on 
-        <%= ride.date.to_formatted_s(:long) %>
+        <%= link_to ride.date.to_formatted_s(:long), ride %>
       </td>
     </tr>
   <% end %>

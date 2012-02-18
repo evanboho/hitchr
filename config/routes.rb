@@ -10,6 +10,7 @@ Network::Application.routes.draw do
   get '/rides/new'
   match '/rides/edit' => 'Rides#edit'
   get '/rides/show'
+  match '/find' => 'rides#find'
   
   match '/rides' => 'rides#index'
   match '/home' => 'pages#home'

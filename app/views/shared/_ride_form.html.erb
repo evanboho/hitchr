@@ -1,21 +1,28 @@
 <%= render 'shared/error_messages_rides', :object => f.object %>
 <div class="field">
   <table>
-  <tr><td>
-  </td></tr>
-  <tr><td>
-  <%= f.label :origin, "From:" %>
-  <%= f.text_field :origin %> 
-  <%= select_tag(:originstate, options_for_select([['IL', 1], ['WI', 2]])) %>
-  </td><td>
-  <%= f.label :destination, "  To:" %>
-  <%= f.text_field :destination %> 
-  <%= select_tag(:originstate, options_for_select([['IL', 1], ['WI', 2]])) %>
-  </td></tr>
-  <tr><td>
-  <%= f.label :date, "On:" %>
-  <%= f.date_select(:date, :order => [:day, :month] ) %> 
-  </td></tr>
+  <tr>
+    <td>
+      <%= f.label :origin, "From:" %>
+      <%= f.text_field :origin %> 
+      <%= f.select(:originstate, options_for_select(['IL', 'WI'])) %>
+    </td>
+    <td>
+      <%= f.label :destination, "  To:" %>
+      <%= f.text_field :destination %> 
+      <%= f.select(:destinationstate, options_for_select(['IL', 'WI'])) %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <%= f.label :date, "On:" %>
+      <%= f.date_select(:date, :order => [:day, :month] ) %> 
+    </td>
+    <td>
+      <%= f.label :time, "at" %>
+      <%= f.time_select(:time, :ampm => true, :minute_step => 15) %>
+    
+  </tr>
   <tr><td>
   
   </td></tr>

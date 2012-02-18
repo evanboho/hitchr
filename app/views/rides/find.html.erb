@@ -1,0 +1,15 @@
+<% provide :title, "some rides" %>
+
+
+<table>
+  <% Ride.where(:origin => "Chicago").each do |ride| %>
+    <tr>
+      <td> 
+        <%= username(ride.user) %> is going from 
+        <%= "#{ride.origin.humanize} to #{ride.destination.humanize}" %>
+        on 
+        <%= link_to ride.date.to_formatted_s(:long), ride %>
+      </td>
+    </tr>
+  <% end %>
+</table>

@@ -3,7 +3,6 @@
     <table>
       <tr>
         <td>
-          
           <% if User.find(ride.user) != current_user %>
             <%= link_to username(ride.user), ride.user %> 
             is 
@@ -11,12 +10,14 @@
             I am
           <% end %>
           driving from
-          <strong><%= ride.origin.humanize %></strong> to 
-          <strong><%= ride.destination.humanize %></strong> 
-          on <%= ride.date.to_formatted_s(:long) %>.
-        </td>
-        <td>
-          <%= link_to "Show", ride %>
+          <strong>
+            <%= "#{ride.origin}, #{ride.originstate}" %>
+          </strong> 
+          to 
+          <strong>
+            <%= "#{ride.destination}, #{ride.destinationstate}" %>
+          </strong> 
+          on <%= link_to ride.date.to_formatted_s(:long), ride %>.
         </td>
         <td>
           <% if current_user == ride.user %>
