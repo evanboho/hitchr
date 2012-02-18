@@ -3,9 +3,9 @@ class CreateRides < ActiveRecord::Migration
   def change
     create_table :rides do |t|
       t.string :origin
-      t.string :originstate
+      #t.string :originstate
       t.string :destination
-      t.string :destinationstate
+      #t.string :destinationstate
       t.date :date
       t.time :time
       t.string :message
