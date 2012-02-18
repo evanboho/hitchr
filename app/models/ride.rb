@@ -45,7 +45,7 @@ class Ride < ActiveRecord::Base
       rides = Ride.where(:date => Date.today..Date.today + 14)
       rides = rides.where('origin LIKE ?', "%#{search.titleize}%")
     else
-      where(:date => Time.now)
+      where(:date => Date.today..Date.today + 14)
     end
   end
   
