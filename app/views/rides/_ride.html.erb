@@ -12,7 +12,12 @@
           <strong>
             <%= "#{ride.destination}, #{ride.destinationstate}" %>
           </strong> 
-          on <%= ride.date.to_formatted_s(:long) %>.
+          on <%= ride.datetime.strftime("%a, %b %d at %I:%M") %>
+          <% if ride.datetime.hour < 12 %>
+          am.
+          <% else %>
+          pm.
+          <% end %>
         </td>
         <td>
           <%= link_to "Show ride", ride %>

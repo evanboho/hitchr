@@ -6,15 +6,14 @@ class CreateRides < ActiveRecord::Migration
       t.string :originstate
       t.string :destination
       t.string :destinationstate
-      t.date :date
-      t.time :time
+      t.datetime :datetime
       t.string :message
       t.integer :user_id
 
       t.timestamps
     end
     
-    add_index :rides, :date
+    add_index :rides, :datetime
     add_index :rides, :origin
     
   end

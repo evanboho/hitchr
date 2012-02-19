@@ -17,7 +17,7 @@ class Ride < ActiveRecord::Base
   include ActiveModel::Validations
   	
   attr_accessible :origin, :originstate, :destination, :destinationstate, 
-                  :date, :time, :message
+                  :datetime, :message
   
   belongs_to :user
   
@@ -27,9 +27,9 @@ class Ride < ActiveRecord::Base
   validates_presence_of :originstate
   validates :destination, :presence => true, 
             :length => { :maximum => 20 } # , :case_sensitive => false
-  validates :date, :presence => true
+  validates :datetime, :presence => true
   
-  default_scope :order => 'rides.date ASC'
+  default_scope :order => 'rides.datetime ASC'
   
   def origin=(value)
     self[:origin] = value && value.titleize
@@ -41,11 +41,10 @@ class Ride < ActiveRecord::Base
   
   def self.search(search)
     if search
-      # find(:all, :conditions => {'origin LIKE ? || destination LIKE ?', "%#{search}%", "%#{search}%"})
-      rides = Ride.where(:date => Date.today..Date.today + 14)
-      rides = rides.where('origin LIKE ?', "%#{search.titleize}%")
+      r = Ride.where(:datetime => Date.today..Date.today + 14)
+      r = r.where('origin LIKE ?', "%#{search.titleize}%")
     else
-      where(:date => Date.today..Date.today + 14)
+      where(:datetime => Date.today..Date.today + 14)
     end
   end
   

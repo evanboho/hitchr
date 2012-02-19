@@ -2,22 +2,21 @@
   <tr>
     <td>
       <%= gravatar_for @ride.user, :size => 50 %>
+      <%= username(@ride.user) %>
     </td>
     <td colspan="2">
       <%= link_to "Back to all rides", rides_path %>
     </td>
   </tr>
     <td>
-      <%= link_to username(@ride.user), @ride.user %> 
-  is driving from <%= "#{@ride.origin}, #{@ride.originstate} 
+      <%= "#{@ride.origin}, #{@ride.originstate} 
                        to #{@ride.destination}, #{@ride.destinationstate}"%>
-  on <%= @ride.date.to_formatted_s(:long) %>
-  at <strong><%= @ride.time.hour %> 
-  <% if @ride.time.hour < 12 %>
-  am
-  <% else %>
-  pm
-  <% end %></strong>
+  on <%= @ride.datetime.strftime("%a, %b %d at %I:%M") %>
+          <% if @ride.datetime.hour < 12 %>
+          am.
+          <% else %>
+          pm.
+          <% end %></strong>
     </td>
     <td>
     </td>

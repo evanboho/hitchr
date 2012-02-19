@@ -3,7 +3,7 @@ class RidesController < ApplicationController
   before_filter :get_ride, :only => [:show, :update]
   
   def index
-      @rides = Ride.search(params[:search]) #.paginate(:page => params[:page], :per_page => 5)
+    @rides = Ride.search(params[:search]) #.paginate(:page => params[:page], :per_page => 5)
   end
 
   def show
@@ -12,7 +12,8 @@ class RidesController < ApplicationController
   
   def new
     @ride = Ride.new
-    @ride.time = "9"
+    #dt = "9".to_time
+    #@ride.hour = dt
   end
   
   def get_ride
