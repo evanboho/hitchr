@@ -50,8 +50,8 @@ class Ride < ActiveRecord::Base
   end
   
   def clean_up_data
-  	self.origin = self.origin.try(:titlize) if self.origin_changed?
-  	self.destination = self.destination.try(:titlize) if self.destination_changed?
+  	self.origin = self.origin.try(:titleize) if self.origin_changed?
+  	self.destination = self.destination.try(:titleize) if self.destination_changed?
 
   end
   
