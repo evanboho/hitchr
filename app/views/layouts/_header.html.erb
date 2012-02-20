@@ -7,7 +7,8 @@
       <li><%= link_to "find ride", rides_path %>	
       <li><%= link_to "profile", current_user %>
       <li><%= link_to "sign out", signout_path, :confirm => "Are you sure?", :method => :delete %>
-      
+    </ul>
+    <%= gravatar_for current_user, :size => 70 %>
       <% else %>
       <li><%= link_to "home", home_path %>
       <li><%= link_to "sign in", signin_path %>

@@ -30,22 +30,30 @@ class Ride < ActiveRecord::Base
   validates :datetime, :presence => true
   
   default_scope :order => 'rides.datetime ASC'
+  before_save :clean_up_data
   
-  def origin=(value)
-    self[:origin] = value && value.titleize
-  end
-
-  def destination=(value)
-    self[:destination] = value && value.titleize
-  end
+#   def origin=(value)
+#     self[:origin] = value && value.titleize
+#   end
+# 
+#   def destination=(value)
+#     self[:destination] = value && value.titleize
+#   end
   
   def self.search(search)
     if search
       r = Ride.where(:datetime => Date.today..Date.today + 14)
       r = r.where('origin LIKE ?', "%#{search.titleize}%")
     else
-      where(:datetime => Date.today..Date.today + 14)
+      find(:all)# where(:datetime => Date.today..Date.today + 14)
     end
   end
+  
+  def clean_up_data
+  	self.origin = self.origin.try(:titlize) if self.origin_changed?
+  	self.destination = self.destination.try(:titlize) if self.destination_changed?
+
+  end
+  
   
 end

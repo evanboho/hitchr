@@ -3,7 +3,8 @@ class RidesController < ApplicationController
   before_filter :get_ride, :only => [:show, :update]
   
   def index
-    @rides = Ride.search(params[:search]) #.paginate(:page => params[:page], :per_page => 5)
+    @rides = Ride.paginate(:page => params[:page], :per_page => 10)
+    @rides = @rides.search(params[:search])
   end
 
   def show
@@ -12,8 +13,7 @@ class RidesController < ApplicationController
   
   def new
     @ride = Ride.new
-    #dt = "9".to_time
-    #@ride.hour = dt
+    @ride.datetime = Date.tomorrow + 9.hours
   end
   
   def get_ride
@@ -48,7 +48,7 @@ class RidesController < ApplicationController
     @ride = current_user.rides.build(params[:ride])
     if @ride.save
       flash[:success] = "Ride created!"
-      redirect_to rides_path
+      redirect_to ride_path(@ride)
     else
       render 'new'
     end

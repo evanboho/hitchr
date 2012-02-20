@@ -1,26 +1,27 @@
 <%= render 'shared/error_messages_rides', :object => f.object %>
 <div class="field">
-  <table>
+  <table class="round">
   <tr>
-    <td>
+    <td colspan="2" width="50%">
       <%= f.label :origin, "From:" %>
       <%= f.text_field :origin %> 
       <%= f.select(:originstate, options_for_select(['IL', 'WI'])) %>
     </td>
-    <td>
+    <td colspan="2">
       <%= f.label :destination, "  To:" %>
       <%= f.text_field :destination %> 
       <%= f.select(:destinationstate, options_for_select(['IL', 'WI'])) %>
     </td>
   </tr>
   <tr>
-    <td>
+    <td colspan="3">
       <%= f.label :datetime, "On:" %>
-      <%= f.date_select(:datetime, :order => [:day, :month] ) %> 
+      <%= f.datetime_select(:datetime, 
+          					:order => [:month, :day, :hour, :minute], 
+       					    :ampm => true, 
+        				    :minute_step => 15
+        				    ) %> 
     </td>
-    <td>
-      <%= f.label :datetime, "at" %>
-      <%= f.time_select(:datetime, :ampm => true, :hour => 8, :minute_step => 15) %>
     
   </tr>
   <tr><td>

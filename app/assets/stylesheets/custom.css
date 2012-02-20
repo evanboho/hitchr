@@ -1,6 +1,7 @@
 .container {
   width: 810px;
   background: #408888;
+  box-shadow: -20px 0px 20px #fff;
 }
 
 body {
@@ -9,18 +10,29 @@ body {
 
 header {
   padding-top: 20px;
+  
 }
 
 header img {
   padding: .5em;
   background: #fff;
+  border: .6em solid black;
+  
 }
 
 section {
+  width: 800px;
   margin-top: 1em;
+  margin-left: -30px;
   font-size: 120%;
+  border: 1em solid black;
   padding: 20px;
-  background: #fff;
+  background: #eff;
+}
+
+section img {
+  padding: 0em;
+  border: 0em;
 }
 
 section h1 {
@@ -48,9 +60,15 @@ nav {
 }
 
 nav {
-  background-color: white;
+  background-color: black;
   padding: 0 0.7em;
   white-space: nowrap;
+  text-align: center;
+}
+
+nav img {
+  padding: 0;
+  border: 1px;
 }
 
 nav ul {
@@ -75,6 +93,7 @@ nav ul li a:visited {
 
 nav ul li a:hover {
   text-decoration: underline;
+  color: #ddd;
 }
 
 a.signup_button {
@@ -136,9 +155,18 @@ footer nav {
   float: none;
 }
 
+table {
+  box-shadow: -5px 2px 5px #000;
+  padding: 0px;
+  margin: 0px;
+  border: 0px;
+}
+
 table.profile {
   width: 100%;
-  margin-bottom: 0;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  padding: 0px;
 }
 
 td.main {
@@ -155,7 +183,7 @@ td.sidebar {
 }
 
 .profile img.gravatar {
-  border: 1px solid #999;
+  border: 0px solid #999;
   margin-bottom: -15px;
 }
 
@@ -214,11 +242,13 @@ div.fieldcenter {
 
 ul.users {
   margin-top: 0em;
+  padding: 10px;
   font-size: 12px;
 }
 
 .users li {
   list-style: none;
+  margin-bottom: -17px;
 }
 
 table.regular {
@@ -253,34 +283,63 @@ td.mid {
   border: 1px solid #999;
 }
 
+table.newride {
+  
+}
+
+table.newride td {
+  vertical-align: bottom;
+  text-align: left;
+}
+
 h1.rides {
   margin-bottom: 0.3em;
 }
 
+h3.rides {
+  text-align: center;
+}
+
 table.rides {
-  margin-top: 0em;
+  padding: 0em;
+  margin: 0em;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
 }
 
 table.rides tr {
-  height: 5px;
   color: #000;
+  padding-bottom: 0px;
+}
+
+table.rides tr td.date {
+  background: #eeeddd;
+  width: 135px;
+  vertical-align: center;
+  font-size: 11px;
 }
 
 table.rides tr td.gravatar {
-  border-top: 1px solid #ccc;
+  padding: 0px;
   vertical-align: top;
-  width: 50px;
+  margin-bottom: -5px;
+  width: 15px;
 }
 
 table.rides tr td.ride {
-  border-top: 1px solid #ccc;
-  vertical-align: top;
-  font-size: 10px
+ 
+  vertical-align: center;
+  text-align: left;
+  font-size: 13px;
+  width: 450px;
   padding-top: 0px;
+  padding-bottom: 0px;
 }
 
 table.rides tr td.timestamp {
-  display: block;
+
+  width: 180px;
+  text-align: right;
   font-size: 85%;
   color: #666;
 }

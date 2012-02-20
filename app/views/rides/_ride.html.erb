@@ -1,51 +1,44 @@
 <tr>
-  <td class="rides">
-    <table class="rides">
-      <tr>
-        <td class="ride">
-          <%= link_to username(ride.user), ride.user %> 
-          is driving from
-          <strong>
-            <%= "#{ride.origin}, #{ride.originstate}" %>
-          </strong> 
-          to 
-          <strong>
-            <%= "#{ride.destination}, #{ride.destinationstate}" %>
-          </strong> 
-          on <%= ride.datetime.strftime("%a, %b %d at %I:%M") %>
-          <% if ride.datetime.hour < 12 %>
-          am.
-          <% else %>
-          pm.
-          <% end %>
-        </td>
-        <td>
-          <%= link_to "Show ride", ride %>
-          
-        </td> 
-        <td class="alt timestamp">
-          
-            Posted 
-            <%= time_ago_in_words(ride.created_at) %> 
-            ago.
-          
-        </td>
-
-        <td>
-          
-        </td>
-      </tr>
-      <% if !current_user.nil? %>
-      <% if current_user.admin? || current_user == ride.user %>
-        <tr>
-          <td>
-            <%= link_to "Edit", edit_ride_path(ride) %>
-            <%= button_to "Delete", ride, :method => :delete, :confirmation => "Are you sure?" %>
-          </td> 
-        </tr>
-      <% end %>
-      <% end %>
-       
-    </table>
+  <td class="date">
+    <%= link_to ridetime(ride), ride %>
+  </td>
+  <td class="gravatar">
+    <%= link_to (gravatar_for ride.user, :size => 20), ride.user %>
+  </td>
+  <td class="ride">
+    <%= link_to username(ride.user), ride.user %> 
+    is driving from
+    <strong>
+    <%= "#{ride.origin}, #{ride.originstate}" %>
+    </strong> 
+    to 
+    <strong>
+    <%= "#{ride.destination}, #{ride.destinationstate}" %>
+    </strong> 
+      
+  </td>
+  <td class="alt timestamp">
+    Posted 
+    <%= time_ago_in_words(ride.created_at) %> 
+    ago.
   </td>
 </tr>
+    <% if !current_user.nil? %>
+      <% if current_user.admin? || current_user == ride.user %>
+        <tr class="ride">
+          <td width="40">
+            <%= link_to "Edit", edit_ride_path(ride) %>
+          </td>
+          <td colspan="2">
+            <%= button_to "Delete", ride, :method => :delete, :confirmation => "Are you sure?" %>
+          </td> 
+          <td>
+          </td>
+          <td>
+          </td>
+          <td>
+          </td>
+          
+        </tr>
+      <% end %>
+    <% end %>

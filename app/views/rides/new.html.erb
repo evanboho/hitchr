@@ -1,8 +1,17 @@
 <% provide(:title, "post ride") %>
-
-<h3 class="ride"><%= "Where to, #{current_user.firstname.humanize}?"%></h3>
+<table class="newride round">
+  <tr>
+    <td rowspan="2" width="200">
+      <h3><%= "Where to, #{current_user.firstname.humanize}?"%></h3>
+    </td> 
+    <td class="newride" >
+      <%= gravatar_for current_user, :size => 30 %>
+    </td>
+  </tr>
+</table>
 
 <%= form_for @ride do |f| %>
+  
   <%= render 'shared/ride_form', :f => f %>
   <div class="actions">
     <%= f.submit "Post Ride" %>
