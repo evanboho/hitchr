@@ -44,7 +44,6 @@ class RidesController < ApplicationController
   
   
   def create
-    # if current_user.rides.date.acs_like_date?
     @ride = current_user.rides.build(params[:ride])
     if @ride.save
       flash[:success] = "Ride created!"

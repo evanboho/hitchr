@@ -23,22 +23,14 @@ class Ride < ActiveRecord::Base
   
   validates :user_id, :presence => true
   validates :origin, :presence => true, 
-            :length => { :maximum => 20 } #, :case_sensitive => false
+            :length => { :maximum => 20 }
   validates_presence_of :originstate
   validates :destination, :presence => true, 
-            :length => { :maximum => 20 } # , :case_sensitive => false
+            :length => { :maximum => 20 }
   validates :datetime, :presence => true
   
   default_scope :order => 'rides.datetime ASC'
-  before_save :clean_up_data
-  
-#   def origin=(value)
-#     self[:origin] = value && value.titleize
-#   end
-# 
-#   def destination=(value)
-#     self[:destination] = value && value.titleize
-#   end
+  before_save :titleize_cities
   
   def self.search(search)
     if search
@@ -49,10 +41,9 @@ class Ride < ActiveRecord::Base
     end
   end
   
-  def clean_up_data
+  def titleize_cities
   	self.origin = self.origin.try(:titleize) if self.origin_changed?
   	self.destination = self.destination.try(:titleize) if self.destination_changed?
-
   end
   
   

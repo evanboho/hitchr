@@ -1,7 +1,7 @@
 .container {
-  width: 810px;
+  width: 650px;
   background: #408888;
-  box-shadow: -20px 0px 20px #fff;
+  box-shadow: 0px 0px 70px #555;
 }
 
 body {
@@ -15,17 +15,18 @@ header {
 
 header img {
   padding: .5em;
-  background: #fff;
-  border: .6em solid black;
+  background: #eee;
+  border: 0em solid black;
+  box-shadow: 4px 0px 20px #000;
   
 }
 
 section {
   width: 800px;
   margin-top: 1em;
-  margin-left: -30px;
+  margin-left: -102px;
   font-size: 120%;
-  border: 1em solid black;
+  border: .1em solid black;
   padding: 20px;
   background: #eff;
 }
@@ -33,6 +34,7 @@ section {
 section img {
   padding: 0em;
   border: 0em;
+  box-shadow: 0px 0px 0px #000;
 }
 
 section h1 {
