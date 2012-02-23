@@ -1,0 +1,9 @@
+<% provide(:title, "edit profile") %>
+<h1>Profile</h1>
+
+<%= form_for(@profile) do |f| %>
+  <%= render 'fields', :f => f %>
+  <div class="actions">
+    <%= f.submit "Sign up" %>
+  </div>
+<% end %>

@@ -19,6 +19,8 @@ class Ride < ActiveRecord::Base
   attr_accessible :origin, :originstate, :destination, :destinationstate, 
                   :datetime, :message
   
+  geocoded_by :origin
+  
   belongs_to :user
   
   validates :user_id, :presence => true
@@ -28,9 +30,32 @@ class Ride < ActiveRecord::Base
   validates :destination, :presence => true, 
             :length => { :maximum => 20 }
   validates :datetime, :presence => true
+  # validates :bearing, :presence => true
   
-  default_scope :order => 'rides.datetime ASC'
+  # default_scope :order => 'rides.datetime ASC'
+  before_validation :geocode
   before_save :titleize_cities
+  after_validation :get_your_bearings
+  before_save :get_distance
+  
+  def get_dest_lat_long
+    
+  end
+  
+  def get_your_bearings
+    @destlatlong = Geocoder.coordinates(destination)
+    destlat = @destlatlong.first
+    destlong = @destlatlong.last
+   # self.bearing = @destlatlong
+    self.bearing = Geocoder::Calculations.bearing_between([latitude, longitude], @destlatlong)
+    self.bearing ||= 90
+  end
+  
+  def get_distance
+    #destlatlong = Geocoder.coordinates(:destination)
+    self.trip_distance = Geocoder::Calculations.distance_between([latitude, longitude], @destlatlong)
+  end
+    
   
   def self.search(search)
     if search

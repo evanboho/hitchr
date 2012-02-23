@@ -2,42 +2,35 @@ Network::Application.routes.draw do
   resources :users
   resources :sessions, :only => [:new, :create, :destroy]
   resources :rides
+  resources :profiles
   
   root :to => 'pages#home'
+  match '/home' => 'pages#home'
   
   # get '/sessions'
   
   get '/rides/new'
   match '/rides/edit' => 'Rides#edit'
   get '/rides/show'
+  match '/rides' => 'rides#index'
   match '/find' => 'rides#find'
   
-  match '/rides' => 'rides#index'
-  match '/home' => 'pages#home'
   match '/users' => 'Users#index'
   match '/signup' => 'Users#new'
   match '/edit' => 'Users#edit'
   match '/delete' => 'Users#destroy'
   
+  get '/profiles/new'
+  # match '/profiles/delete' => 'Profiles#destroy'
+  match '/profile/edit' => 'Profiles#edit'
+  # get '/profile/destroy' 
+  
+  
+  
+  
   match '/signin', :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy'
-  
-  # match ':nickname' => 'users#show'
-  
-  # get "users/new"
-  
- 
 
-  
-  
-  # match 'home' => redirect("Pages#home")
-  
-  # get "pages/home"
-  
- 
-
-  # get "pages/contact"
-  
   match '/contact' => "Pages#contact"
   
   # get "pages/about"
@@ -53,8 +46,6 @@ Network::Application.routes.draw do
   match '/signin' => "Pages#signin"
   
   # get "pages/contact"
-  
-  match '/contact' => "Pages#contact"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

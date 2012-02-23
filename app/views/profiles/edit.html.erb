@@ -1,0 +1,9 @@
+<% provide :title, "edit profile #{username(current_user)}" %>
+
+
+<%= form_for(@profile) do |f| %>
+  <%= render 'fields', :f => f %>
+  <div class="actions">
+    <%= f.submit "Update" %>
+  </div>
+<% end %>

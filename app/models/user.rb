@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
   attr_accessible :firstname, :lastname, :email, :password, :password_confirmation
   
   has_many :rides, :dependent => :destroy
+  has_one :profile, :dependent => :destroy
   
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   
@@ -39,6 +40,12 @@ class User < ActiveRecord::Base
                        :length       => { :within => 6..12 }, :on => :create
   
   before_save :encrypt_password
+  before_save :titleize_name
+  
+  def titleize_name
+    self.firstname = firstname.try(:titleize)
+    self.lastname = lastname.try(:titleize)
+  end
   
   def has_password?(submitted_password)
     encrypted_password == encrypt(submitted_password)

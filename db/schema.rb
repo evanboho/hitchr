@@ -11,13 +11,32 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120212235529) do
+ActiveRecord::Schema.define(:version => 20120221222127) do
+
+  create_table "profiles", :force => true do |t|
+    t.date     "birthday"
+    t.string   "sex"
+    t.string   "home_town"
+    t.string   "about_block"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.integer  "cred",        :default => 0
+    t.integer  "user_id"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+  end
+
+  add_index "profiles", ["user_id"], :name => "index_profiles_on_user_id"
 
   create_table "rides", :force => true do |t|
     t.string   "origin"
     t.string   "originstate"
+    t.float    "latitude"
+    t.float    "longitude"
     t.string   "destination"
     t.string   "destinationstate"
+    t.float    "bearing"
+    t.float    "trip_distance"
     t.datetime "datetime"
     t.string   "message"
     t.integer  "user_id"
@@ -27,6 +46,7 @@ ActiveRecord::Schema.define(:version => 20120212235529) do
 
   add_index "rides", ["datetime"], :name => "index_rides_on_datetime"
   add_index "rides", ["origin"], :name => "index_rides_on_origin"
+  add_index "rides", ["user_id"], :name => "index_rides_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "firstname"

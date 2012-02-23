@@ -3,11 +3,13 @@
     <%= link_to ridetime(ride), ride %>
   </td>
   <td class="gravatar">
-    <%= link_to (gravatar_for ride.user, :size => 20), ride.user %>
+    <%= link_to (gravatar_for ride.user, :size => 20), ride.user unless ride.user == @user %>
   </td>
   <td class="ride">
+    <% unless @user == ride.user %>
     <%= link_to username(ride.user), ride.user %> 
     is driving from
+    <% end %>
     <strong>
     <%= "#{ride.origin}, #{ride.originstate}" %>
     </strong> 
@@ -23,22 +25,3 @@
     ago.
   </td>
 </tr>
-    <% if !current_user.nil? %>
-      <% if current_user.admin? || current_user == ride.user %>
-        <tr class="ride">
-          <td width="40">
-            <%= link_to "Edit", edit_ride_path(ride) %>
-          </td>
-          <td colspan="2">
-            <%= button_to "Delete", ride, :method => :delete, :confirmation => "Are you sure?" %>
-          </td> 
-          <td>
-          </td>
-          <td>
-          </td>
-          <td>
-          </td>
-          
-        </tr>
-      <% end %>
-    <% end %>

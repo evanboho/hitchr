@@ -15,7 +15,6 @@ class UsersController < ApplicationController
   end
   
   def new
-    # @title = "Sign up"
     @user = User.new
     @user.password = nil
   end

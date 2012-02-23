@@ -16,7 +16,7 @@ header {
 header img {
   padding: .5em;
   background: #eee;
-  border: 0em solid black;
+  border: .1em solid black;
   box-shadow: 4px 0px 20px #000;
   
 }
@@ -24,11 +24,12 @@ header img {
 section {
   width: 800px;
   margin-top: 1em;
-  margin-left: -102px;
+  margin-left: -99px;
   font-size: 120%;
   border: .1em solid black;
   padding: 20px;
   background: #eff;
+  box-shadow: 5px, 0px, 0px, #000;
 }
 
 section img {
@@ -145,6 +146,10 @@ a.see_rides_button {
   border-radius: 10px;
 }
 
+black {
+  color: black;
+}
+
 footer {
   text-align: center;
   margin-top: 30px;
@@ -158,10 +163,10 @@ footer nav {
 }
 
 table {
-  box-shadow: -5px 2px 5px #000;
+  box-shadow: 0px 0px 0px #ccc;
   padding: 0px;
   margin: 0px;
-  border: 0px;
+  border: .1em solid black;
 }
 
 table.profile {
@@ -185,7 +190,7 @@ td.sidebar {
 }
 
 .profile img.gravatar {
-  border: 0px solid #999;
+  border: 1px solid #999;
   margin-bottom: -15px;
 }
 

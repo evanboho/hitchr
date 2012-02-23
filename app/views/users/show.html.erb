@@ -2,31 +2,83 @@
 
 <table class="profile" summary="Profile information">
   <tr>
-    <td class="main">
-      <h1>
-        <%= username(@user) %><br/><br/>
-      </h1>
-      
-     
-   
+    <td class="main" colspan="1">
+      <h2>
+        <%= username(@user) %>
+      </h2>
     </td>
-    <td class="sidebar round">
-      <strong>Name: </strong> <%= @user.firstname %><br />
-      <strong>URL</strong> <%= link_to user_path, @user %><br />
-      Member since <%= @user.created_at.strftime("%B %Y") %> <br />
-      <%= link_to "edit profile", edit_user_path(@user) %><br />
-      <!--<td class="mid"><%= link_to "delete", @user, :method => :delete %></td>-->
+    <td class="sidebar round" rowspan="3">
+      
+      <% unless @user == current_user %>
+        <%= gravatar_for @user %><br/><br/> 
+      <% end %>
+      
+      <strong><%= @user.firstname %> 
+      <%= @user.lastname if @user == current_user %></strong>
+      <%= link_to "edit", edit_user_path(@user) if @user == current_user %><br />
+      
+      <% unless @user.profile.nil? %>
+        <%= age(@user.profile.birthday) %>-year-old <%= @user.profile.sex %><br/>
+        <div><%= "From: #{@user.profile.home_town}" unless @user.profile.home_town.empty?  %></div>
+        <div><%= "Has #{@user.profile.cred} points of " %><strong>cred</strong>
+        </div><br/>
+      <% else %>
+        Has 0 points of <strong>cred</strong><br/>
+      <% end %>
+      
+      <% if @user == current_user %>
+      <% unless @user.profile.nil? %>
+        
+        <%= link_to "Edit Profile", edit_profile_path(@user.profile) %>
+        <%= button_to "Delete Profile", @user.profile, :method => :delete, :confirm => "Are you sure?" %>
+      <% else %>
+        <%= link_to "complete your profile", new_profile_path %><br /> 
+      <% end %>
+        <!--<td class="mid"><%= link_to "delete", @user, :method => :delete %></td>-->
       <% if @user.admin == true %>admin<% end %>
+    <% end %>
+     <div class="alt">Member since <%= @user.created_at.strftime("%B %Y") %></div>  
     </td> 
   </tr>
+
+  
+  
   <tr>
-    <td class="rides" colspan="2">
-      <% unless @user.rides.empty? %>
-          <table class="rides">
-          <%= render @rides %>
-          </table>
+    <td>
+      <% unless @user.profile.nil? || @user.profile.about_block.empty? %>
+      About me: <%= @user.profile.about_block %>
       <% end %>
     </td>
   </tr>
+  
+  
+      
+  
+  <tr>
+    <td>
+    <% unless @user.rides.empty? %>
+        <h3>Current Ride Posts</h3>
+          <table class="rides">
+          <%= render @rides %>
+          </table>
+    <% else %>
+    <h4 align="center"><%= "[#{@user.firstname} has no upcoming rides posted.]" %></h4> 
+      <% end %>
+      </td>
+     
+  </tr>
+  <tr>
+    <td class="rides" colspan="2">
+    </td>
+  </tr>
+  <% unless @user.profile.nil? %>
+    <tr>
+      <td>
+          <table>
+            <%= render '/shared/profile' %>
+          </table>
+      </td>
+    </tr>
+  <% end %>
 </table>
 

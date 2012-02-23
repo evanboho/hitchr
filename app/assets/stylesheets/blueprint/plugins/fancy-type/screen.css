@@ -17,7 +17,8 @@
    Best used on prepositions and ampersands. */
 
 .alt {
-  color: #666;
+  color: #000;
+  font-size: 80%;
   font-family: "Warnock Pro", "Goudy Old Style","Palatino","Book Antiqua", Georgia, serif;
   font-style: italic;
   font-weight: normal;

@@ -1,0 +1,20 @@
+<h3>User Profile</h3>
+
+<table>
+  <% unless @user.profile.birthday.nil? %>
+  <tr>
+      <td>Age: <%= time_ago_in_words(@user.profile.birthday) %> old</td>
+      <td><%= link_to 'edit profile', edit_profile_path(@user.profile) %> 
+  </tr>
+  <% end %>
+  <% unless @user.profile.home_town.nil? %>
+  <tr>
+      <td>Home town: <%=@user.profile.home_town.titleize %></td>
+  </tr>
+  <% end %>
+  <% unless @user.profile.sex.nil? %>
+  <tr>
+      <td>Sex: <%= @user.profile.sex %></td>
+  </tr>
+  <% end %>
+</table>

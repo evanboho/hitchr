@@ -4,7 +4,15 @@ class RidesController < ApplicationController
   
   def index
     @rides = Ride.paginate(:page => params[:page], :per_page => 10)
-    @rides = @rides.search(params[:search])
+    unless params[:search].blank?
+      if params[:miles_radius] == "0"
+        @rides = @rides.search(params[:search])
+      else
+        s = Geocoder.coordinates(params[:search])
+        @rides = Ride.near(params[:search], params[:miles_radius])
+        # @rides = @rides.paginate
+      end
+    end
   end
 
   def show
