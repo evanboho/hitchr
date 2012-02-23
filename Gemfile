@@ -4,6 +4,7 @@ gem 'rails', '3.2.1'
 gem 'activesupport'
 
 gem 'geocoder'
+gem 'gmaps4rails'
 
 # gem 'bcrypt-ruby', '3.0.1'
 

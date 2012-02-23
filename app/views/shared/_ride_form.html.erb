@@ -5,12 +5,12 @@
     <td colspan="2" width="50%">
       <%= f.label :origin, "From:" %>
       <%= f.text_field :origin %> 
-      <%= f.select(:originstate, options_for_select(['IL', 'WI'])) %>
+      <%= f.select(:originstate, ['IA', 'IL', 'IN', 'WI']) %>
     </td>
     <td colspan="2">
-      <%= f.label :destination, "  To:" %>
+      <%= f.label :destination, "To:" %>
       <%= f.text_field :destination %> 
-      <%= f.select(:destinationstate, options_for_select(['IL', 'WI'])) %>
+      <%= f.select(:destinationstate, ['IA', 'IL', 'IN', 'WI']) %>
     </td>
   </tr>
   <tr>

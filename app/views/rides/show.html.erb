@@ -29,16 +29,24 @@
     <% end %>
   </tr>
   <tr><td><br/></td></tr>
-   <tr><td>start</td><td>end</td></tr>
+  <% latlong = Geocoder.coordinates(@ride.destination + ' ' + @ride.destinationstate) %>
+   <tr><td><strong>Start</td><td><strong>End</td></tr>
   <tr>
     <td><%= image_tag "http://maps.google.com/maps/api/staticmap?size=225x150&sensor=false&zoom=7&markers=#{@ride.latitude}%2C#{@ride.longitude}" %>
     </td>
     <td>
-    <% latlong = Geocoder.coordinates(@ride.destination + ' ' + @ride.destinationstate) %>
+    
     <%= image_tag "http://maps.google.com/maps/api/staticmap?size=225x150&sensor=false&zoom=7&markers=#{latlong.first}%2C#{latlong.last}" %>
     </td>
   </tr>
- 
+  <tr>
+  <td>
+  <% map_link = 'http://maps.google.com/maps?saddr=' + @ride.origin + ',+' + @ride.originstate + '&daddr=' + @ride.destination + ',+' + @ride.destinationstate %>
+  <%= link_to "See route on Google Maps", map_link %>
+  <iframe width="0" height="0" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" 
+  src='<%= map_link %>'>
+  </iframe><br />
+  </td>
   <tr>
     <td>
       <% unless @ride.message.nil? %>
