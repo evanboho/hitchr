@@ -6,6 +6,8 @@
   <%= select_tag :miles_radius, options_for_select([0, 10, 25, 50]) %>
   miles of 
   <%= text_field_tag :search, params[:search], :placeholder => "enter search..." %>
+  on or after <%= date_select(
+    :search_date, :discard_year => true) %>
   <%= submit_tag "Search", :name => nil %>
   </p>
 <% end %>

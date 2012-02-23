@@ -52,7 +52,8 @@ class RidesController < ApplicationController
   
   
   def create
-    @ride = current_user.rides.build(params[:ride])
+    @ride = Ride.new(params[:ride])
+    @ride.user_id = current_user.id
     if @ride.save
       flash[:success] = "Ride created!"
       redirect_to ride_path(@ride)
