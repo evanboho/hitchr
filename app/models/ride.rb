@@ -33,9 +33,9 @@ class Ride < ActiveRecord::Base
   # validates :bearing, :presence => true
   
   # default_scope :order => 'rides.datetime ASC'
-  before_validation :geocode
+  after_validation :geocode
   before_save :titleize_cities
-  after_validation :get_your_bearings
+  before_save :get_your_bearings
   before_save :get_distance
   
   def get_dest_lat_long
@@ -58,9 +58,14 @@ class Ride < ActiveRecord::Base
     
   
   def self.search(search)
-    if search
-      r = Ride.where(:datetime => Date.today..Date.today + 14)
-      r = r.where('origin LIKE ?', "%#{search.titleize}%")
+    unless search.nil?
+      # start_date = params[:start_date] 
+      start_city = search[:start_city]
+      scope = Ride.scoped({})
+      scope = scope.scoped :conditions => ["rides.origin LIKE ?", "%#{start_city.titleize}%"] unless search.nil?
+      
+      # r = Ride.where(:datetime => Date.today..Date.today + 14)
+      where('origin LIKE ?', "%#{search.titleize}%")
     else
       find(:all)# where(:datetime => Date.today..Date.today + 14)
     end

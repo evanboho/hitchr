@@ -200,6 +200,29 @@ div.field, div.actions {
   font-size: 12px;
 }
 
+select {
+   background: transparent;
+   padding: 2px;
+   font-size: 12px;
+   border: 1px solid #ccc;
+   height: 34px;
+}
+
+form textarea {
+  
+}
+
+/*
+form.new_ride {
+  margin-bottom: 2em;
+}
+
+form.new_ride textarea {
+  height: 10em;
+  margin-bottom: 0;
+}
+*/
+
 div.fieldcenter {
   margin-bottom: 10px;
   font-size: 14px;
@@ -343,6 +366,8 @@ table.rides tr td.ride {
   padding-bottom: 0px;
 }
 
+
+
 table.rides tr td.timestamp {
 
   width: 180px;
@@ -367,11 +392,3 @@ div.user_info span.rides {
   font-size: 80%;
 }
 
-form.new_ride {
-  margin-bottom: 2em;
-}
-
-form.new_ride textarea {
-  height: 10em;
-  margin-bottom: 0;
-}

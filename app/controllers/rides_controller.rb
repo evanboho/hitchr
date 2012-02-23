@@ -3,15 +3,26 @@ class RidesController < ApplicationController
   before_filter :get_ride, :only => [:show, :update]
   
   def index
-    @rides = Ride.paginate(:page => params[:page], :per_page => 10)
-    unless params[:search].blank?
-      if params[:miles_radius] == "0"
-        @rides = @rides.search(params[:search])
-      else
-        s = Geocoder.coordinates(params[:search])
-        @rides = Ride.near(params[:search], params[:miles_radius])
-        # @rides = @rides.paginate
+    unless params[:start_date].nil?
+      @start_date = Date.civil(params[:start_date][:year].to_i, params[:start_date][:month].to_i, params[:start_date][:day].to_i)
+      # @rides = Ride.paginate(:page => params[:page], :per_page => 10)
+      unless params[:search_city].blank?
+        if params[:miles_radius].to_i > 0
+          coords = Geocoder.coordinates(params[:search_city])
+          @rides = Ride.near(coords, params[:miles_radius])
+        else
+          @rides = Ride.scoped
+          city_state = params[:search_city].split(',', 2)
+          @rides = @rides.scoped(
+            :conditions => ["rides.originstate LIKE ?", 
+            "%#{city_state.last.strip.upcase}%"]) unless city_state.first == city_state.last
+          @rides = @rides.scoped(:conditions => ["rides.origin LIKE ?", "%#{city_state.first.titleize}%"]) unless city_state.nil?
+        end
+        
       end
+      @rides = @rides.scoped( :conditions => { :datetime => @start_date..@start_date + 14 } ) 
+    else 
+    @rides = Ride.all
     end
   end
 

@@ -3,16 +3,25 @@
 <%= form_tag rides_path, :method => 'get' do %>
   <p>
   Search for rides that start within 
-  <%= select_tag :miles_radius, options_for_select([0, 10, 25, 50]) %>
+  <%= select_tag(:miles_radius, options_for_select([0, 10, 25, 50, 100])) %>
   miles of 
-  <%= text_field_tag :search, params[:search], :placeholder => "enter search..." %>
-  on or after <%= date_select(
-    :search_date, :discard_year => true) %>
+  <%= text_field_tag :search_city, 
+                     params[:search_city], 
+                     :placeholder => "city, state" %>
+  on or after 
+  <% @start_date ||= Date.today %>
+  <%= select_date @start_date, :prefix => :start_date,  
+                              :order => [:month, :day] %>
   <%= submit_tag "Search", :name => nil %>
   </p>
 <% end %>
 
 <br/>
+<% unless @rides.blank? %>
 <table class="rides">
-  <%= render @rides %>
+    <%= render @rides %>
 </table>
+<% else %>
+<h4>There were no rides that matched your search. Try expanding the radius.</h4>
+<div><%= link_to "See all rides", rides_path %></div>
+<% end %>
