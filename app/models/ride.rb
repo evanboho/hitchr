@@ -43,18 +43,19 @@ class Ride < ActiveRecord::Base
   end
   
   def get_your_bearings
-    @destlatlong = Geocoder.coordinates(destination)
+    dest = destination + ', ' + destinationstate
+    @destlatlong = Geocoder.coordinates(dest)
     destlat = @destlatlong.first
     destlong = @destlatlong.last
-   # self.bearing = @destlatlong
     self.bearing = Geocoder::Calculations.bearing_between([latitude, longitude], @destlatlong)
     self.bearing ||= 90
   end
   
   def get_distance
-    #destlatlong = Geocoder.coordinates(:destination)
     self.trip_distance = Geocoder::Calculations.distance_between([latitude, longitude], @destlatlong)
   end
+  
+ 
     
   
   def self.search(search)
@@ -62,7 +63,7 @@ class Ride < ActiveRecord::Base
       # start_date = params[:start_date] 
       start_city = search[:start_city]
       scope = Ride.scoped({})
-      scope = scope.scoped :conditions => ["rides.origin LIKE ?", "%#{start_city.titleize}%"] unless search.nil?
+      scope = scope.scoped :conditions => ["rides.origin LIKE ?", "%#{start_city.titleize}%"]
       
       # r = Ride.where(:datetime => Date.today..Date.today + 14)
       where('origin LIKE ?', "%#{search.titleize}%")

@@ -1,6 +1,6 @@
 <table>
   <tr>
-    <td>
+    <td colspan="2">
       <%= gravatar_for @ride.user, :size => 50 %>
       <%= username(@ride.user) %>
     </td>
@@ -8,7 +8,7 @@
       <%= link_to "Back to all rides", rides_path %>
     </td>
   </tr>
-    <td>Driving <%= @ride.trip_distance.round(0) %> miles 
+    <td colspan="2">Driving <%= @ride.trip_distance.round(0) %> miles 
     <strong><%= Geocoder::Calculations.compass_point(@ride.bearing) %> 
     </strong>from
       <%= "#{@ride.origin}, #{@ride.originstate} 
@@ -20,8 +20,6 @@
           pm.
           <% end %></strong>
     </td>
-    <td>
-    </td>
     <% if @ride.user == current_user %>
       <td>
         <%= link_to "edit", edit_ride_path(@ride) %>
@@ -30,6 +28,17 @@
         <%= button_to "Delete", @ride, :method => :destroy %>
     <% end %>
   </tr>
+  <tr><td><br/></td></tr>
+   <tr><td>start</td><td>end</td></tr>
+  <tr>
+    <td><%= image_tag "http://maps.google.com/maps/api/staticmap?size=225x150&sensor=false&zoom=7&markers=#{@ride.latitude}%2C#{@ride.longitude}" %>
+    </td>
+    <td>
+    <% latlong = Geocoder.coordinates(@ride.destination + ' ' + @ride.destinationstate) %>
+    <%= image_tag "http://maps.google.com/maps/api/staticmap?size=225x150&sensor=false&zoom=7&markers=#{latlong.first}%2C#{latlong.last}" %>
+    </td>
+  </tr>
+ 
   <tr>
     <td>
       <% unless @ride.message.nil? %>
@@ -39,10 +48,4 @@
     <br />
     </td>
   </tr>
-    <tr>
-    <td><%= @ride.bearing.round(2) %>
-    </td>
-  </tr>
- 
-  
 </table>

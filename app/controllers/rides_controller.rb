@@ -4,7 +4,7 @@ class RidesController < ApplicationController
   
   def index
     unless params[:start_date].nil?
-      @start_date = Date.civil(params[:start_date][:year].to_i, params[:start_date][:month].to_i, params[:start_date][:day].to_i)
+      @start_date = as_date
       # @rides = Ride.paginate(:page => params[:page], :per_page => 10)
       unless params[:search_city].blank?
         if params[:miles_radius].to_i > 0
@@ -18,12 +18,15 @@ class RidesController < ApplicationController
             "%#{city_state.last.strip.upcase}%"]) unless city_state.first == city_state.last
           @rides = @rides.scoped(:conditions => ["rides.origin LIKE ?", "%#{city_state.first.titleize}%"]) unless city_state.nil?
         end
-        
       end
       @rides = @rides.scoped( :conditions => { :datetime => @start_date..@start_date + 14 } ) 
     else 
     @rides = Ride.all
     end
+  end
+  
+  def as_date
+    Date.civil(params[:start_date][:year].to_i, params[:start_date][:month].to_i, params[:start_date][:day].to_i)
   end
 
   def show
