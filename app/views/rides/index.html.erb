@@ -1,5 +1,6 @@
 <% provide :title, "rides" %>
 <h3 class="rides">Rides</h3>
+<p><%= request.location.city %>
 <%= form_tag rides_path, :method => 'get' do %>
   <p align="center">
   Search for rides that <strong>start</strong> within<br/>  
