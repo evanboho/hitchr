@@ -38,6 +38,11 @@ class Ride < ActiveRecord::Base
   before_save :get_your_bearings
   before_save :get_distance
   
+  
+  def get_user_ip
+    user_location = Geocoder.request
+  end
+  
   def get_dest_lat_long
     
   end
@@ -52,7 +57,9 @@ class Ride < ActiveRecord::Base
   end
   
   def get_distance
-    self.trip_distance = Geocoder::Calculations.distance_between([latitude, longitude], @destlatlong)
+    crow_flies = Geocoder::Calculations.distance_between([latitude, longitude], @destlatlong)
+    self.trip_distance = ((crow_flies / 10 * 1.12).round(0)) * 10
+    
   end
   
  

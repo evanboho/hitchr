@@ -8,7 +8,7 @@
       <%= link_to "Back to all rides", rides_path %>
     </td>
   </tr>
-    <td colspan="2">Driving <%= @ride.trip_distance.round(0) %> miles 
+    <td colspan="2">Driving ~<%= @ride.trip_distance.round %> miles 
     <strong><%= Geocoder::Calculations.compass_point(@ride.bearing) %> 
     </strong>from
       <%= "#{@ride.origin}, #{@ride.originstate} 

@@ -35,8 +35,15 @@ class RidesController < ApplicationController
   
   def new
     @ride = Ride.new
+    @ride.origin = get_user_ip.city
+    @ride.originstate = get_user_ip.state_code
     @ride.datetime = Date.tomorrow + 9.hours
   end
+  
+  def get_user_ip
+    request.location
+  end
+  
   
   def get_ride
     @ride = Ride.find(params[:id])

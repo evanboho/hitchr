@@ -202,10 +202,10 @@ div.field, div.actions {
 
 select {
    background: transparent;
-   padding: 2px;
+   padding: 5px;
    font-size: 12px;
-   border: 1px solid #ccc;
-   height: 34px;
+   border: 1px solid #aaa	;
+   height: 30px;
 }
 
 form textarea {
