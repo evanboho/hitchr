@@ -37,6 +37,7 @@ class RidesController < ApplicationController
     @ride = Ride.new
     @ride.origin = get_user_ip.city
     @ride.originstate = get_user_ip.state_code
+    @ride.destinationstate = get_user_up.state_code
     @ride.datetime = Date.tomorrow + 9.hours
   end
   
