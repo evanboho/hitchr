@@ -8,6 +8,7 @@ class RidesController < ApplicationController
       # @rides = Ride.paginate(:page => params[:page], :per_page => 10)
       unless params[:search_city].blank?
         if params[:miles_radius].to_i > 0
+          @miles_radius = params[:miles_radius]
           coords = Geocoder.coordinates(params[:search_city])
           @rides = Ride.near(coords, params[:miles_radius])
         else
@@ -18,12 +19,16 @@ class RidesController < ApplicationController
             "%#{city_state.last.strip.upcase}%"]) unless city_state.first == city_state.last
           @rides = @rides.scoped(:conditions => ["rides.origin LIKE ?", "%#{city_state.first.titleize}%"]) unless city_state.nil?
         end
-        
+        unless params[:search_dest].blank?
+          search_bearing = Geocoder::Calculations.bearing_between(params[:search_city], params[:search_dest])
+          @rides = @rides.scoped( :conditions => { :bearing => (search_bearing - 35)..(search_bearing + 35) } )
+        end
       end
       @rides ||= Ride.scoped
       @rides = @rides.scoped( :conditions => { :datetime => @start_date..@start_date + 14 } ) 
+      @rides = @rides.reorder('rides.datetime ASC')
     else 
-    @rides = Ride.all
+    @rides = Ride.order('rides.datetime ASC').limit(50)
     end
   end
   
@@ -57,12 +62,13 @@ class RidesController < ApplicationController
   end
   
   def edit
-    @ride = current_user.rides.build(params[:ride])
-    if @ride.save
-      flash[:success] = "Ride created!"
-    else
-      render 'edit'
-    end
+    @ride = Ride.find(params[:id])
+    #@ride = current_user.rides.build(params[:ride])
+    #if @ride.save
+    #  flash[:success] = "Ride created!"
+    #else
+    #  render 'edit'
+    #end
   end
 
   def update

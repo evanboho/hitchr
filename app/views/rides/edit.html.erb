@@ -1,10 +1,21 @@
 <% provide :title, "edit ride" %>
-
-<h2>Edit ride</h2>
-<% @ride = Ride.find(params[:id]) %>
+<table class="round">
+  <tr>
+    <td>
+      <%= gravatar_for current_user, :size => 30 %>
+      <h3><%= "Edit your ride, #{@ride.user.firstname}" %></h3>
+    </td>
+  </tr>
 <%= form_for(@ride) do |f| %>
   <%= render 'shared/ride_form', :f => f %>
+  <tr>
+    <td>
+    </td>
+    <td>
   <div class="actions">
     <%= f.submit "Update" %>
   </div>
+    </td>
+  </tr>
+  </table>
 <% end %>

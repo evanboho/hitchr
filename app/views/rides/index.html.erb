@@ -1,14 +1,18 @@
 <% provide :title, "rides" %>
 <h3 class="rides">Rides</h3>
 <%= form_tag rides_path, :method => 'get' do %>
-  <p>
-  Search for rides that start within 
-  <%= select_tag(:miles_radius, options_for_select([0, 10, 25, 50, 100])) %>
-  miles of 
+  <p align="center">
+  Search for rides that <strong>start</strong> within<br/>  
+  <%= select_tag :miles_radius, options_for_select([0, 10, 25, 50, 100]) %>
+  miles<br/> of 
   <%= text_field_tag :search_city, 
                      params[:search_city], 
                      :placeholder => "city, state" %>
-  on or after 
+  in the direction of
+  <%= text_field_tag :search_dest,
+                     params[:search_dest],
+                     :placeholder => "city, state" %>
+  <p align="center">on or after 
   <% @start_date ||= Date.today %>
   <%= select_date @start_date, :prefix => :start_date,  
                               :order => [:month, :day] %>
