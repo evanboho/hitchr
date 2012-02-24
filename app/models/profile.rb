@@ -26,7 +26,7 @@ class Profile < ActiveRecord::Base
     unless home_town.blank?
       coords = Geocoder.coordinates(home_town)
       result = Geocoder.search(coords).first
-      self.home_town = result.city + ', ' + result.state_code + ' ' + result.postal_code
+      self.home_town = result.city + ', ' + result.state_code + ', ' + result.postal_code
       self.latitude = coords.first
       self.longitude = coords.last
       # self.home_zip = result.postal_code

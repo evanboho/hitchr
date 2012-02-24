@@ -5,6 +5,7 @@
     <title><%= full_title(yield(:title)) %></title>
     <%= render 'layouts/stylesheets' %>
     <%= javascript_include_tag :defaults %>
+    <%= yield :javascript_includes %>
     <%= yield :head %>
   </head>
   <body>

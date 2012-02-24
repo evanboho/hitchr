@@ -5,48 +5,30 @@ Network::Application.routes.draw do
   resources :profiles
   
   root :to => 'pages#home'
-  match '/home' => 'pages#home'
-  
-  # get '/sessions'
-  
-  get '/rides/new'
-  match '/rides/edit' => 'Rides#edit'
-  get '/rides/show'
-  match '/rides' => 'rides#index'
-  match '/find' => 'rides#find'
-  
-  match '/users' => 'Users#index'
+  match '/hotpants' => 'pages#home'
   match '/signup' => 'Users#new'
-  match '/edit' => 'Users#edit'
   match '/delete' => 'Users#destroy'
-  
-  get '/profiles/new'
-  # match '/profiles/delete' => 'Profiles#destroy'
-  match '/profile/edit' => 'Profiles#edit'
-  # get '/profile/destroy' 
-  
-  
-  
   
   match '/signin', :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy'
 
-  match '/contact' => "Pages#contact"
-  
-  # get "pages/about"
-  
+  match '/contact' => "Pages#contact" 
   match '/about' => "Pages#about"
-  
-  # get "pages/help"
-  
   match '/help' => "Pages#help"
   
-  # get "pages/signin"
   
-  match '/signin' => "Pages#signin"
+  # get '/sessions'
   
-  # get "pages/contact"
-
+  # get '/rides/new'
+  # match '/rides/edit' => 'Rides#edit'
+  # get '/rides/show'
+  # match '/rides' => 'rides#index'
+  # match '/find' => 'rides#find'  
+  # match '/users' => 'Users#index'
+  # match '/edit' => 'Users#edit'
+  # get '/profiles/new'
+  # match '/profile/edit' => 'Profiles#edit'
+ 
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

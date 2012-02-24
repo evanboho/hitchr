@@ -10,7 +10,7 @@
     </ul>
     <%= link_to (gravatar_for current_user, :size => 70), current_user %>
       <% else %>
-      <li><%= link_to "home", home_path %>
+      <li><%= link_to "home", root_path %>
       <li><%= link_to "sign in", signin_path %>
       <li><%= link_to "sign up", signup_path %>
       <li><%= link_to "about", about_path %>

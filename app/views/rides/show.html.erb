@@ -22,10 +22,10 @@
     </td>
     <% if @ride.user == current_user %>
       <td>
-        <%= link_to "edit", edit_ride_path(@ride) %>
+        <%= link_to "edit", edit_ride_path(@ride), :confirm => 'question?' %>
       </td>
       <td>
-        <%= button_to "Delete", @ride, :method => :destroy %>
+        <%= button_to "Delete", @ride, :confirm => "Are you sure?", :method => :delete %>
     <% end %>
   </tr>
   <tr><td><br/></td></tr>
