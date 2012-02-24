@@ -5,29 +5,28 @@ class RidesController < ApplicationController
   def index
     unless params[:start_date].nil?
       @start_date = make_date
-      # @rides = Ride.paginate(:page => params[:page], :per_page => 10)
       unless params[:search_city].blank?
-      search_start = params[:search_city] 
+        search_start = params[:search_city] 
         if params[:miles_radius].to_i > 0
-          @miles_radius = params[:miles_radius]
-          coords = Geocoder.coordinates(search_start)
-          @rides = Ride.near(coords, params[:miles_radius])
+          @rides = Ride.search_near(search_start, params[:miles_radius])
         else
-          @rides = Ride.scoped
-          city_state = search_start.split(',', 2)
-          @rides = @rides.scoped(
-            :conditions => ["rides.originstate LIKE ?", 
-            "%#{city_state.last.strip.upcase}%"]) unless city_state.first == city_state.last
-          @rides = @rides.scoped(:conditions => ["rides.origin LIKE ?", "%#{city_state.first.titleize}%"])
+          @rides = Ride.city_state_search(search_start)
         end
         unless params[:search_dest].blank?
           search_bearing = Geocoder::Calculations.bearing_between(search_start, params[:search_dest])
           @rides = @rides.scoped( :conditions => { :bearing => (search_bearing - 35)..(search_bearing + 35) } )
         end
+      else 
+        if !params[:search_dest].blank?
+          flash[:notice] = "Please enter a start city."
+        end
       end
       @rides ||= Ride.scoped
       @rides = @rides.scoped( :conditions => { :datetime => @start_date..@start_date + 14 } ) 
       @rides = @rides.reorder('rides.datetime ASC')
+      if @rides.blank?
+        flash[:notice] = "No rides matched your results. Try increasing the search radius."
+      end
     else 
       # user_loc = request.
       # @rides = Ride.scoped( :conditions => 

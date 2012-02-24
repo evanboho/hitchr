@@ -34,7 +34,7 @@ class Ride < ActiveRecord::Base
   
   # default_scope :order => 'rides.datetime ASC'
   after_validation :geocode
-  before_save :titleize_cities
+  before_save :clean_up_cities
   before_save :get_your_bearings
   before_save :get_distance
   
@@ -59,11 +59,29 @@ class Ride < ActiveRecord::Base
   def get_distance
     crow_flies = Geocoder::Calculations.distance_between([latitude, longitude], @destlatlong)
     self.trip_distance = ((crow_flies / 10 * 1.12).round(0)) * 10
-    
   end
   
- 
-    
+  def self.state_search(city_state)
+    scoped(:conditions => ["rides.originstate LIKE ?", "%#{city_state.strip.upcase}%"])
+  end
+  
+  def self.city_search(city_state)
+    scoped(:conditions => ["rides.origin LIKE ?", "%#{city_state.titleize}%"])
+  end
+  
+  def self.search_near(search_start, radius)
+    @miles_radius = radius  # necessary? How to set search to current miles_radius?
+    coords = Geocoder.coordinates(search_start)
+    @rides = Ride.near(coords, radius)
+  end
+  
+  def self.city_state_search(search_start)
+    @rides = Ride.scoped
+    city_state = search_start.split(', ', 2)
+    @rides = @rides.state_search(city_state.last) unless city_state.count == 1
+    @rides = @rides.city_search(city_state.first)
+  end
+  
   
   def self.search(search)
     unless search.nil?
@@ -79,7 +97,7 @@ class Ride < ActiveRecord::Base
     end
   end
   
-  def titleize_cities
+  def clean_up_cities
   	self.origin = self.origin.try(:titleize) if self.origin_changed?
   	self.destination = self.destination.try(:titleize) if self.destination_changed?
   end

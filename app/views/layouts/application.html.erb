@@ -5,16 +5,18 @@
     <title><%= full_title(yield(:title)) %></title>
     <%= render 'layouts/stylesheets' %>
     <%= javascript_include_tag 'application' %>
-    <%= javascript_include_tag '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' %>
+    
     <%= yield :head %>
+    
   </head>
   <body>
+  
     <div class="container round">
       <%= render 'layouts/header' %>
-      <section class="round">
-        <% flash.each do |key, value| %>
+       <% flash.each do |key, value| %>
           <div class="flash <%= key %>"><%= value %></div>
-        <% end %>
+       <% end %>
+       <section class="round"> 
         <%= yield %>
       </section>
       <%= render 'layouts/footer' %>

@@ -2,31 +2,38 @@
 <h3 class="rides">Rides</h3>
 <p><%= request.location.city %>
 <%= form_tag rides_path, :method => 'get' do %>
-  <p align="center">
-  Search for rides that <strong>start</strong> within<br/>  
-  <%= select_tag :miles_radius, options_for_select([0, 10, 25, 50, 100]) %>
-  miles<br/> of 
-  <%= text_field_tag :search_city, 
-                     params[:search_city], 
-                     :placeholder => "city, state" %>
-  in the direction of
+  <table class="search round">
+  <tr>
+  <td>
+  <strong>From:</strong> <%= text_field_tag :search_city, params[:search_city], 
+                                            :placeholder => "city, state" %> 
+    +/- <%= select_tag :miles_radius, options_for_select([0, 10, 25, 50, 100]) %>
+    miles
+    </td>
+    <td>
+  
+  <strong>Towards:</strong>
   <%= text_field_tag :search_dest,
                      params[:search_dest],
                      :placeholder => "city, state" %>
-  <p align="center">on or after 
+  </td><td>
+  <strong>On:</strong>
   <% @start_date ||= Date.today %>
   <%= select_date @start_date, :prefix => :start_date,  
                               :order => [:month, :day] %>
+  
+  </td>
+  <td>
   <%= submit_tag "Search", :name => nil %>
-  </p>
+  </td>
+  </tr>
+  </table>
 <% end %>
-
-<br/>
 <% unless @rides.blank? %>
-<table class="rides">
+<table class="round rides">
     <%= render @rides %>
 </table>
 <% else %>
-<h4>There were no rides that matched your search. Try expanding the radius.</h4>
-<div><%= link_to "See all rides", rides_path %></div>
+<br/>
+<h3 align="center"><%= link_to "See all rides", rides_path %></h3>	
 <% end %>

@@ -13,13 +13,7 @@ module SessionsHelper
         "#{user.firstname.humanize} #{user.lastname.to(0).humanize}"
   end
   
-  def ridetime(ride)
-    if ride.datetime.hour < 12
-      ride.datetime.strftime("%a, %b %d at %I:%M") + "am"
-    else
-      ride.datetime.strftime("%a, %b %d at %I:%M") + "pm"
-    end
-  end
+  
   
   def admin?
     current_user.admin

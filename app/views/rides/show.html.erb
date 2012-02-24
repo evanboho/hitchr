@@ -1,4 +1,5 @@
-<table>
+
+<table class="round">
   <tr>
     <td colspan="2">
       <%= gravatar_for @ride.user, :size => 50 %>
@@ -9,7 +10,7 @@
     </td>
   </tr>
     <td colspan="2">Driving ~<%= @ride.trip_distance.round %> miles 
-    <strong><%= Geocoder::Calculations.compass_point(@ride.bearing) %> 
+    <strong><%= compass_points(@ride.bearing) %>
     </strong>from
       <%= "#{@ride.origin}, #{@ride.originstate} 
                        to #{@ride.destination}, #{@ride.destinationstate}"%>
@@ -57,3 +58,4 @@
     </td>
   </tr>
 </table>
+<%= debug @ride %>

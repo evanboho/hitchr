@@ -1,6 +1,12 @@
 <tr>
+  <td class="date day" width=10>
+    <%= link_to ridetime(ride)[0], ride %>
+  </td>
   <td class="date">
-    <%= link_to ridetime(ride), ride %>
+    <%= link_to ridetime(ride)[1], ride %>
+  </td>
+  <td class="date time">
+    <%= link_to ridetime(ride)[2], ride %>
   </td>
   <td class="gravatar">
     <%= link_to (gravatar_for ride.user, :size => 20), ride.user unless ride.user == @user %>
