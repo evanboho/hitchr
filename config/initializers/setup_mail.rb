@@ -10,7 +10,7 @@ ActionMailer::Base.smtp_settings = {
 
 ActionMailer::Base.default_url_options[:host] = "localhost:3000"
 
-require 'development_mail_interceptor'
+# require 'development_mail_interceptor'
 
 config.action_mailer.raise_delivery_errors = true
 
