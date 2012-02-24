@@ -6,9 +6,8 @@ class RidesController < ApplicationController
     unless params[:start_date].nil?
       @start_date = make_date
       # @rides = Ride.paginate(:page => params[:page], :per_page => 10)
-      search_start = params[:search_city] unless params[:search_city].blank?
-      search_start ||= request.location.city
-      search_start = "Madison" if search_start.blank?
+      unless params[:search_city].blank?
+      search_start = params[:search_city] 
         if params[:miles_radius].to_i > 0
           @miles_radius = params[:miles_radius]
           coords = Geocoder.coordinates(search_start)
@@ -25,14 +24,14 @@ class RidesController < ApplicationController
           search_bearing = Geocoder::Calculations.bearing_between(search_start, params[:search_dest])
           @rides = @rides.scoped( :conditions => { :bearing => (search_bearing - 35)..(search_bearing + 35) } )
         end
-      # end
+      end
       @rides ||= Ride.scoped
       @rides = @rides.scoped( :conditions => { :datetime => @start_date..@start_date + 14 } ) 
       @rides = @rides.reorder('rides.datetime ASC')
     else 
       # user_loc = request.
       # @rides = Ride.scoped( :conditions => 
-      # @rides = Ride.order('rides.datetime ASC').limit(50)
+      @rides = Ride.order('rides.datetime ASC').limit(50)
     end
   end
   
