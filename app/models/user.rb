@@ -17,7 +17,7 @@ require 'digest/hmac'
 
 class User < ActiveRecord::Base
   attr_accessor :password
-  attr_accessible :firstname, :lastname, :email, :password, :password_confirmation
+  attr_accessible :firstname, :lastname, :email, :password, :password_confirmation, :admin
   
   has_many :rides, :dependent => :destroy
   has_one :profile, :dependent => :destroy

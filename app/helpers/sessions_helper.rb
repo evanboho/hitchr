@@ -13,7 +13,9 @@ module SessionsHelper
         "#{user.firstname.humanize} #{user.lastname.to(0).humanize}"
   end
   
-  
+  def current_locations
+    request.location
+  end
   
   def admin?
     current_user.admin

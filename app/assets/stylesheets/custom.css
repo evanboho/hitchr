@@ -349,7 +349,7 @@ table.rides tr td.date {
   width: 40px;
   vertical-align: center;
   font-size: 11px;
-  padding: 0px;
+  padding: 3px;
 }
 
 table.rides tr td.time {

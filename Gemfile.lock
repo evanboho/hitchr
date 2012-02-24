@@ -160,6 +160,7 @@ DEPENDENCIES
   gmaps4rails
   gravatar_image_tag (= 1.0.0.pre2)
   jquery-rails
+  mail (>= 2.4.1)
   pg
   rails (= 3.2.1)
   rspec-rails (= 2.6.1)

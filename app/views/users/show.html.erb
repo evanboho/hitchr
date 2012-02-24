@@ -38,7 +38,7 @@
         <%= link_to "complete your profile", new_profile_path %><br /> 
       <% end %>
         <!--<td class="mid"><%= link_to "delete", @user, :method => :delete %></td>-->
-      <% if @user.admin == true %>admin<% end %>
+      <% if @user.admin? %>admin<% end %>
     <% end %>
      <div class="alt">Member since <%= @user.created_at.strftime("%B %Y") %></div>  
     </td> 

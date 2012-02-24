@@ -1,21 +1,13 @@
 
  
   <tr>
-    <td width="100px"><%= gravatar_for user, :size => 20 %></td>
-    <td width="100px" class="rt"><%= link_to username(user), user %></td>
-    
-  <% if !current_user.nil? %>
-    <% if user == current_user || current_user.admin? %>
-      <td class="mid" width="75px">
-        <%= button_to "edit",edit_user_path(user), :method => :get %></td>
-      <% if current_user.admin? %>
-      <td class="mid" width="75px">
-        <%= button_to "delete", user, :method => :delete, 
-                              :confirm => "Are you sure?",
-                              :title => "Delete #{username(user)}"%></td> 
-      <% end %>
-    <% end %>
-  <% end %>
-  <td></td>
+    <td>
+    <ul>
+      <li>
+        <%= gravatar_for user, :size => 20 %>
+        <%= link_to username(user), user %>
+        <%= link_to " [edit] ",edit_user_path(user), :method => :get if user == current_user || current_user.admin? %>
+        <%= link_to " [delete] ", user, :method => :delete, :confirm => "Are you sure?!" %>
+    </td>
   </tr>
  
