@@ -43,8 +43,6 @@
      <div class="alt">Member since <%= @user.created_at.strftime("%B %Y") %></div>  
     </td> 
   </tr>
-
-  
   
   <tr>
     <td>
@@ -54,36 +52,33 @@
     </td>
   </tr>
   
-  
-      
-  
   <tr>
     <td>
     <% unless @user.rides.empty? %>
-        <h3>Current Ride Posts</h3>
-          <table class="rides">
-          <%= render @rides %>
-          </table>
+      <h3>Current Ride Posts</h3>
+      <table class="round">
+        <%= render @rides %>
+      </table>
     <% else %>
-    <h4 align="center"><%= "[#{@user.firstname} has no upcoming rides posted.]" %></h4> 
-      <% end %>
-      </td>
-     
+      <h4 align="center"><%= "[#{@user.firstname} has no upcoming rides posted.]" %></h4> 
+    <% end %>
+    </td>
   </tr>
+    
   <tr>
     <td class="rides" colspan="2">
     </td>
   </tr>
   <% if current_user.admin == true %>
-  <% unless @user.profile.nil? %>
-    <tr>
-      <td>
+    <% unless @user.profile.nil? %>
+      <tr>
+        <td>
           <table>
             <%= render '/shared/profile' %>
           </table>
-      </td>
-    </tr>
-  <% end %>
+        </td>
+      </tr>
+    <% end %>
   <% end %>
 </table>
 

@@ -1,0 +1,30 @@
+<%= form_tag rides_path, :method => 'get' do %>
+<table class="search round">
+  <tr>
+    <td>
+      <% seed_city = params[:search_city] %>
+      <% seed_city ||= request.location.city %>
+      <strong>From:</strong> <%= text_field_tag :search_city, seed_city, 
+                                                :placeholder => "city, state" %> 
+      +/- <%= select_tag :miles_radius, options_for_select([0, 10, 25, 50, 100]) %>
+      miles
+   </td>
+   <td>
+     <strong>Towards:</strong>
+     <%= text_field_tag :search_dest,
+                         params[:search_dest],
+                        :placeholder => "(optional)" %>
+    </td>
+    <td>
+     <strong>On:</strong>
+     <% @start_date ||= Date.today %>
+     <%= select_date @start_date, :prefix => :start_date,  
+                                  :order => [:month, :day] %>
+    
+    </td>
+    <td>
+      <%= submit_tag "Search", :name => nil %>
+    </td>
+  </tr>
+</table>
+<% end %>
