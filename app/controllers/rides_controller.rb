@@ -3,7 +3,6 @@ class RidesController < ApplicationController
   before_filter :get_ride, :only => [:show, :update]
   
   def index
-    unless params[:start_date].nil?
       @start_date = make_date
       unless params[:search_city].blank?
         search_start = params[:search_city] 
@@ -27,15 +26,18 @@ class RidesController < ApplicationController
       if @rides.blank?
         flash[:notice] = "No rides matched your results. Try increasing the search radius."
       end
-    else 
+    # else 
       # user_loc = request.
       # @rides = Ride.scoped( :conditions => 
-      @rides = Ride.order('rides.datetime ASC').limit(50)
-    end
+      # @rides = Ride.order('rides.datetime ASC').limit(50)
   end
   
   def make_date
-    Date.civil(params[:start_date][:year].to_i, params[:start_date][:month].to_i, params[:start_date][:day].to_i)
+    unless params[:date].nil?
+      Date.civil(params[:start_date][:year].to_i, params[:start_date][:month].to_i, params[:start_date][:day].to_i)
+    else
+      Date.today
+    end
   end
 
   def show

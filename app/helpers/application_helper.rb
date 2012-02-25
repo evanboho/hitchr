@@ -12,6 +12,10 @@ module ApplicationHelper
   def logo
     logo = image_tag("hitchr1.png", :size => "250x69", :alt => "Sample", :class => "round")
   end
+  
+  def username(user)
+    "#{user.firstname.humanize} #{user.lastname.to(0).humanize}"
+  end
 
   def links
     # "link_to "Home", 'home'"

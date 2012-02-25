@@ -8,11 +8,7 @@ module SessionsHelper
   def current_user
     @current_user ||= user_from_remember_token
   end
-  
-  def username(user)
-        "#{user.firstname.humanize} #{user.lastname.to(0).humanize}"
-  end
-  
+
   def current_locations
     request.location
   end

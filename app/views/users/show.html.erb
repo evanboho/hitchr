@@ -1,6 +1,6 @@
 <% provide :title, @user.firstname %>
 
-<table class="profile" summary="Profile information">
+<table class="round shadow profile" summary="Profile information">
   <tr>
     <td class="main" colspan="1">
       <h2>
@@ -56,7 +56,7 @@
     <td>
     <% unless @user.rides.empty? %>
       <h3>Current Ride Posts</h3>
-      <table class="round">
+      <table class="rides round">
         <%= render @rides %>
       </table>
     <% else %>

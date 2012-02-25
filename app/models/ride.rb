@@ -98,8 +98,8 @@ class Ride < ActiveRecord::Base
   end
   
   def clean_up_cities
-  	self.origin = self.origin.try(:titleize) if self.origin_changed?
-  	self.destination = self.destination.try(:titleize) if self.destination_changed?
+  	self.origin = self.origin.try(:titleize).try(:strip) if self.origin_changed?
+  	self.destination = self.destination.try(:titleize).try(:strip) if self.destination_changed?
   end
   
   
