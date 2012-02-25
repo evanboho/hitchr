@@ -1,16 +1,19 @@
 <% provide(:title, "Home") %>
 
-<h4>Sharing is caring. Carsharing is carcaring.</h4><br />
+<h4>It's not rocket science; it's carsharing.</h4><br />
+
 <%= link_to "See Rides!", rides_path, :class => "see_rides_button round" %><br />
 <% unless signed_in? %>  
   <%= link_to "Sign up now!", signup_path, :class => "signup_button round" %><br/>
   <%= link_to "Sign in", signin_path, :class => "signin_button round" %>
 <% else %>
-  <table class="front" summary="For signed-in users">
-    <tr>
-      <td class="main">
-        
-      </td>
-    </tr>
-  </table>
-<% end %>
+  
+ 
+  
+<% end %><br/>
+<div class="headline"> Recent posted rides</div>
+ <%= render '/shared/ride_search' %>
+ <% @rides = Ride.order("created_at DESC").limit(5) %>
+ <table>
+ <%= render @rides	 %>
+ </table>

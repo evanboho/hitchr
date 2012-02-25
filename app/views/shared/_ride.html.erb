@@ -1,0 +1,33 @@
+<tr>
+  <td class="date day" width=10>
+    <%= link_to ridetime(ride)[0], ride %>
+  </td>
+  <td class="date">
+    <%= link_to ridetime(ride)[1], ride %>
+  </td>
+  <td class="date time">
+    <%= link_to ridetime(ride)[2], ride %>
+  </td>
+  <td class="gravatar">
+    <%= link_to (gravatar_for ride.user, :size => 20), ride.user unless ride.user == @user %>
+  </td>
+  <td class="ride">
+    <% unless @user == ride.user %>
+    <%= link_to username(ride.user), ride.user %> 
+    is driving from
+    <% end %>
+    <strong>
+    <%= "#{ride.origin}, #{ride.originstate}" %>
+    </strong> 
+    to 
+    <strong>
+    <%= "#{ride.destination}, #{ride.destinationstate}" %>
+    </strong> 
+      
+  </td>
+  <td class="alt timestamp">
+    Posted 
+    <%= time_ago_in_words(ride.created_at) %> 
+    ago.
+  </td>
+</tr>

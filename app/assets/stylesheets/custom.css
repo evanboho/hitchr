@@ -344,6 +344,14 @@ table.rides tr {
   padding-bottom: 0px;
 }
 
+div.headline  {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: Georgia;
+  
+}	
+
 table.rides tr td.date {
   background: #cee;
   width: 40px;
