@@ -15,10 +15,9 @@ module RidesHelper
     day = ride.datetime.strftime("%a")
     date = ride.datetime.strftime("%b %d")
     if ride.datetime.hour < 12
-      hour = ride.datetime.strftime("%I") + "am"
-      
+      hour = ride.datetime.hour.to_s + "am"
     else
-      hour = ride.datetime.strftime("%I") + "pm"
+      hour = (ride.datetime.hour - 12).to_s + "pm"
     end
     [day, date, hour]
   end

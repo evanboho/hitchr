@@ -22,14 +22,18 @@ header img {
 }
 
 section {
-  width: 800px;
+  
   margin-top: 1em;
-  margin-left: -99px;
-  font-size: 120%;
+ /*
+ margin-right: auto;
+  margin-left: auto;
+*/
+  margin-left: -80px;
+  margin-right: -80px;
   border: .1em solid black;
   padding: 20px;
   background: #eff;
-  box-shadow: 5px, 0px, 0px, #000;
+  box-shadow: 15px, 0px, 20px, #fff;
 }
 
 section img {
@@ -99,45 +103,41 @@ nav ul li a:hover {
   color: #ddd;
 }
 
-a.signup_button {
+a.button {
   margin-left: auto;
   margin-right: auto;
   display: block;
   text-align: center;
-  width: 220px;
-  color: #111111;
+  width: 110px;
+  color: black;
+  font-size: 125%;
+  padding: 20px;
+  font-weight: bold;
+}
+
+a.signup {
   background: #abcdef;
-  border: 1px;
-  border-color: #fff;
-  font-size: 150%;
-  font-weight: bold;
-  padding: 20px;
+  
 }
 
-a.signin_button {
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-  text-align: center;
-  width: 110px;
-  color: #000;
+a.signup:hover {
+  background-color: #bcdef0;
+}
+
+a.signin {
   background: #fedcba;
-  font-size: 125%;
-  font-weight: bold;
-  padding: 20px;
 }
 
-a.see_rides_button {
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-  text-align: center;
-  width: 110px;
-  color: #000;
+a.signin:hover {
+  background-color: #0fedcb;
+}
+
+a.see_rides {
   background: #dcbfed;
-  font-size: 125%;
-  font-weight: bold;
-  padding: 20px;
+}
+
+a.see_rides:hover {
+  background-color: #aaa;
 }
 
 .round {
@@ -317,6 +317,10 @@ table.newride {
   
 }
 
+table.home {
+  border: 0px;
+}
+
 table.newride td {
   vertical-align: bottom;
   text-align: left;
@@ -348,7 +352,8 @@ div.headline  {
   text-align: center;
   font-size: 20px;
   font-weight: bold;
-  font-family: Georgia;
+  font-family: Verdana;
+  font-style: ;
   
 }	
 
