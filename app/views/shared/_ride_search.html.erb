@@ -2,10 +2,11 @@
 <table class="search round shadow_up">
   <tr>
     <td>
-      <% seed_city = params[:search_city] %>
+      <% seed_city = params[:search_origin] %>
       <% seed_city ||= request.location.city %>
-      <strong>From:</strong> <%= text_field_tag :search_city, seed_city, 
+      <strong>From:</strong> <%= text_field_tag :search_origin, seed_city, 
                                                 :placeholder => "city, state" %> 
+	  <% @miles_radius ||= 0 %>
       +/- <%= select_tag :miles_radius, options_for_select([0, 10, 25, 50, 100]) %>
       miles
    </td>

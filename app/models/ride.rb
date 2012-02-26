@@ -15,15 +15,13 @@
 
 class Ride < ActiveRecord::Base
   include ActiveModel::Validations
-  	
-  attr_accessible :origin, :originstate, :destination, :destinationstate, 
-                  :datetime, :message
   
   geocoded_by :origin
   
   belongs_to :user
   
-  validates :user_id, :presence => true
+  validates :user, :presence => true
+
   validates :origin, :presence => true, 
             :length => { :maximum => 20 }
   validates_presence_of :originstate
@@ -49,53 +47,105 @@ class Ride < ActiveRecord::Base
   
   def get_your_bearings
     dest = destination + ', ' + destinationstate
-    @destlatlong = Geocoder.coordinates(dest)
-    destlat = @destlatlong.first
-    destlong = @destlatlong.last
-    self.bearing = Geocoder::Calculations.bearing_between([latitude, longitude], @destlatlong)
-    self.bearing ||= 90
+    @destcoords = Geocoder.coordinates(dest)
+    self.bearing = Geocoder::Calculations.bearing_between([latitude, longitude], @destcoords)
   end
   
   def get_distance
-    crow_flies = Geocoder::Calculations.distance_between([latitude, longitude], @destlatlong)
+    crow_flies = Geocoder::Calculations.distance_between([latitude, longitude], @destcoords)
     self.trip_distance = ((crow_flies / 10 * 1.12).round(0)) * 10
   end
   
-  def self.state_search(city_state)
-    scoped(:conditions => ["rides.originstate LIKE ?", "%#{city_state.strip.upcase}%"])
-  end
   
-  def self.city_search(city_state)
-    scoped(:conditions => ["rides.origin LIKE ?", "%#{city_state.titleize}%"])
-  end
+  # SEARCH(es)
   
-  def self.search_near(search_start, radius)
-    @miles_radius = radius  # necessary? How to set search to current miles_radius?
-    coords = Geocoder.coordinates(search_start)
-    @rides = Ride.near(coords, radius)
-  end
-  
-  def self.city_state_search(search_start)
-    @rides = Ride.scoped
-    city_state = search_start.split(', ', 2)
-    @rides = @rides.state_search(city_state.last) unless city_state.count == 1
-    @rides = @rides.city_search(city_state.first)
-  end
-  
-  
-  def self.search(search)
-    unless search.nil?
-      # start_date = params[:start_date] 
-      start_city = search[:start_city]
-      scope = Ride.scoped({})
-      scope = scope.scoped :conditions => ["rides.origin LIKE ?", "%#{start_city.titleize}%"]
+  def self.search(criteria)
+    @rides = Ride.where("datetime > ?", criteria[:start_date])
+    if criteria[:origin_city].present?
+      if criteria[:miles_radius].to_i == 0 
+        @rides = @rides.search_origin(criteria)
+        if @rides.blank?
+          criteria[:miles_radius] = 25 #TODO: make it expand the radius += 15 until finds cities
+          @rides = Ride.search_near(criteria)
+          @miles_radius = criteria[:miles_radius]
+          @flash_expand = true
+        end 
+      else
+        @rides = @rides.search_near(criteria)
+      end
+    end
+    if criteria[:dest_city].present?
       
-      # r = Ride.where(:datetime => Date.today..Date.today + 14)
-      where('origin LIKE ?', "%#{search.titleize}%")
-    else
-      find(:all)# where(:datetime => Date.today..Date.today + 14)
+      @rides_dest = @rides.search_destination(criteria)
+      if @rides_dest.blank?
+        @rides = @rides.search_direction(criteria)
+      else
+        @rides = @rides_dest
+      end
+    end
+    @rides
+  end  
+    
+  
+  def self.search_origin(criteria)
+    if criteria[:origin_state]
+      @rides = @rides.where("originstate LIKE ?", "%#{criteria[:origin_state]}%")
+    end
+    if criteria[:origin_city] 
+      @rides = @rides.where("origin LIKE ?", "%#{criteria[:origin_city]}%")
     end
   end
+  
+  def self.search_destination(criteria)
+    if criteria[:dest_state]
+      @rides_dest = @rides.where("destinationstate LIKE ?", "%#{criteria[:dest_state]}")
+    end
+    if criteria[:dest_city]
+      @rides_dest ||= @rides
+      @rides_dest = @rides_dest.where("destination LIKE ?", "%#{criteria[:dest_city]}")
+    end   
+  end
+  
+  def self.search_near(criteria)
+    @miles_radius = criteria[:miles_radius]  # necessary? How to set search to current miles_radius?
+    @rides = Ride.near("#{criteria[:origin_city]}, #{criteria[:origin_state]}", criteria[:miles_radius])
+  end
+  
+  def self.search_direction(criteria)
+    pp"fpp"
+    search_bearing = Geocoder::Calculations.bearing_between("#{criteria[:origin_city]}, #{criteria[:origin_state]}", 
+                                                            "#{criteria[:dest_city]}, #{criteria[:dest_state]}")
+    @rides.where(:bearing => (search_bearing-15)..(search_bearing+15))
+  end 
+    
+    
+    
+    # @rides = @rides.where("datetime > ?", criteria[:start_date])       
+        # unless @rides.empty?
+        #           if criteria[:dest_state]
+        #             @rides = @rides.where("destinationstate LIKE ?", "%#{criteria[:dest_state]}")
+        #           end
+        #           if criteria[:dest_city]
+        #             @rides = @rides.where("destination LIKE ?", "%#{criteria[:dest_city]}")  
+        #           end
+        #           if @rides.empty?
+        #             
+        #             x = 0
+        #             while @rides.nil? do                                                   
+        #               @rides = @rides.scoped( :conditions => { :bearing => (search_bearing - x)..(search_bearing + x) } )
+        #               x+= 5
+        #             end  
+        #             flash[:notice] = "We couldn't find any cities directly to #{criteria[:dest_city]}, so we expanded your search."
+        #           end
+        #         end  
+      
+    
+      # @rides = @rides.search_near(criteria[:origin_city], criteria[:miles_radius])
+    # end
+
+    # @rides
+    
+  
   
   def clean_up_cities
   	self.origin = self.origin.try(:titleize).try(:strip) if self.origin_changed?

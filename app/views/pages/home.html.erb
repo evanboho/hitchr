@@ -47,7 +47,7 @@
 <div class="headline"> Recent posted rides</div>
  <%= render '/shared/ride_city_search' %>
  <% @rides = Ride.scoped( :conditions => { :datetime => Date.today..Date.today + 14 } ) %>
- <% @rides = @rides.reorder("created_at DESC").limit(10) %>
+ <% @rides = @rides.order("created_at DESC").limit(10) %>
  <table class="round rides shadow_down">
  <%= render @rides	 %>
  </table>
