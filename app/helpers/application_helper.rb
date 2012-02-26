@@ -9,6 +9,10 @@ module ApplicationHelper
     end
   end
   
+  # def full_title(subtitle)
+  #   sub_title.blank? ? "hitchr" : "hitcher - #{subtitle}"
+  # end
+  
   def logo
     logo = image_tag("hitchr1.png", :size => "250x69", :alt => "Sample", :class => "round")
   end
@@ -79,12 +83,8 @@ module ApplicationHelper
   					'WV',
   					'WI',
   					'WY']
-  	
-  	form.select(attribute, state_list, {}, {class: "chzn-select"})
-  	#TODO: 1) give a class (e.g. chzn-select to the selectors)
-  	#      2) download chosen plugin 
-  	#      3) get the assets in teh right place
-  	#      4)   
+
+  	form.select(attribute, state_list, {}, {class: "chzn-select", style:"width:60px"})
   end
   
 end
