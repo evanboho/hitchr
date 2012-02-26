@@ -2,31 +2,42 @@
 
 
 <% if !signed_in? %>
-<h3>Welcome to Hitchr.</h3>
-  <p>Hitchr helps drivers find riders and riders find drivers. Sharing the rides, sharing the 
-  gas, sharing the experience.</p>
+  <h3>Welcome to Hitchr.</h3>
+    <p>Hitchr helps drivers find riders and riders find drivers. Sharing the rides, sharing the 
+    gas, sharing the experience.</p>
 
 
-<br/>
+  <br/>
 
-<table class="home">
-  <tr>
-    <td>
-      <%= link_to "Sign in", signin_path, :class => "signin button round" unless signed_in? %>
-    </td>
-    <td>
-      <%= link_to "See Rides", rides_path, :class => "see_rides button round" %>
-    </td>
-    <td>
-      <%= link_to "Sign up", signup_path, :class => "signup button round" unless signed_in? %>  
-    </td>
-  </tr>
-</table>
+  <table class="home">
+	<tr>
+	  <td>
+		<%= link_to "sign in", signin_path, :class => "signin button round" %>
+	  </td>
+	  <td>
+		<%= link_to "find ride", rides_path, :class => "find_rides button round" %>
+	  </td>
+	  <td>
+		<%= link_to "sign up", signup_path, :class => "signup button round" %>  
+      </td>
+    </tr>
+  </table>
 
 <% else %>
-<h3><%= "Hey, #{current_user.firstname}!" %></h3>
-
-
+  <h3><%= "Hey, #{current_user.firstname}!" %></h3>
+  <table class="home">
+    <tr>
+      <td>
+        <%= link_to "post ride", new_ride_path, :class => "signin button round" %>
+      </td>
+      <td>
+        <%= link_to "find ride", rides_path, :class => "find_rides button round" %>
+      </td>
+      <td>
+        <%= link_to "your rides", current_user, :class => "signup button round" %>
+      </td>
+    </tr>
+  </table>
 <% end %>
 
 
@@ -37,6 +48,6 @@
  <%= render '/shared/ride_city_search' %>
  <% @rides = Ride.scoped( :conditions => { :datetime => Date.today..Date.today + 14 } ) %>
  <% @rides = @rides.reorder("created_at DESC").limit(10) %>
- <table class="round rides">
+ <table class="round rides shadow_down">
  <%= render @rides	 %>
  </table>

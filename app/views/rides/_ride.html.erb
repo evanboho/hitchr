@@ -11,19 +11,22 @@
   <td class="gravatar">
     <%= link_to (gravatar_for ride.user, :size => 20), ride.user unless ride.user == @user %>
   </td>
-  <td class="ride">
-    <% unless @user == ride.user %>
+  <td class="user">
+
     <%= link_to username(ride.user), ride.user %> 
-    is driving from
-    <% end %>
+  </td>
+  <td class="cities">
     <strong>
     <%= "#{ride.origin}, #{ride.originstate}" %>
     </strong> 
+  </td>
+  <td>
     to 
+  </td>
+  <td>
     <strong>
     <%= "#{ride.destination}, #{ride.destinationstate}" %>
     </strong> 
-      
   </td>
   <td class="alt timestamp">
     Posted 

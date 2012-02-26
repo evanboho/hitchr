@@ -1,5 +1,5 @@
 <% provide(:title, "post ride") %>
-<table class="newride round">
+<table class="shadow_up round">
   <tr>
     <td>
       <%= gravatar_for current_user, :size => 30 %>
@@ -8,8 +8,9 @@
   </tr>
 
 <%= form_for @ride do |f| %>
-  
+  <div align="center">
   <%= render 'shared/ride_form', :f => f %>
+  </div>
   <tr>
   <td></td><td>
   <div class="actions">

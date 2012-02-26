@@ -1,14 +1,12 @@
 <%= render 'shared/error_messages_rides', :object => f.object %>
-<div class="field">
-  <table class="round">
-  <tr><td><br /></td></tr>
-  <tr width="40%">
+<table class="rideform round shadow_down">
+  <tr>
     <td colspan="1">
       <%= f.label :origin, "From:" %>
       <%= f.text_field :origin %> 
       <%= f.select(:originstate, ['IA', 'IL', 'IN', 'WI']) %>
     </td>
-    <td colspan="1" width="40%">
+    <td colspan="1">
       <%= f.label :destination, "To:" %>
       <%= f.text_field :destination %> 
       <%= f.select(:destinationstate, ['IA', 'IL', 'IN', 'WI']) %>

@@ -112,7 +112,7 @@ a.button {
   font-weight: bold;
 }
 a.button:hover {
-  background-color: #09c;
+  background-color: #75f1f9;
 }
 a.signup {
   background: #43BFC7;
@@ -120,7 +120,7 @@ a.signup {
 a.signin {
   background: #43BFC7;
 }
-a.see_rides {
+a.find_rides {
   background: #43BFC7;
 }
 /* buttons */
@@ -131,7 +131,6 @@ a.see_rides {
   -webkit-border-radius: 10px;
   border-radius: 10px;
 }
-
 div.center {
   text-align: center;
 }
@@ -141,76 +140,74 @@ div.center {
 /* tables */
 table {
   width: 100%;
-  padding: 0px;
+  padding: 5px;
   margin: 0px;
   border: .1em solid black;
 }
-table.home {
-  border: 0px;
-}
-
-table.profile {
-  margin-bottom: 0px;
-  margin-top: 0px;
-}
-
-table.shadow {
+table.shadow_down {
   box-shadow: 3px 5px 10px #999;
 }
-
-table.rides {
-  padding: 0em;
-  margin: 0em;
-  border-top: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
+table.shadow_up {
+  box-shadow: 3px -5px 10px #999;
+}
+table.home {
+  border: 0px;
 }
 table.search {
   font-size: 14px;
   padding: 0px 3px;
 }
-
-table.rides :nth-child(even) td, table.rides tr.even td {background:#dee;}
-
-table.rides tr {
-  color: #000;
-  padding-bottom: 0px;
+table.rideform {
+  padding: 10px 30px;
 }
 
+table.rideform td {
+  padding: 5px;
+}
 
-
-table.rides tr td.date {
+/* ride table */
+table.rides {
+  padding: 0em;
+  margin: 0em;
+  font-size: 12px;
+}
+table.rides :nth-child(even) td, table.rides tr.even td {
+  background:#dee;
+}
+table.rides td.date {
   background: #cee;
   width: 40px;
   vertical-align: center;
   font-size: 11px;
-  padding: 3px;
+  padding-left: 5px;
+  padding-right: 0px;
 }
-
-table.rides tr td.time {
+table.rides td.time {
   width: 20px;
   text-align: right;
+  padding-left: 0px;
   padding-right: 5px;
 }
-
-table.rides tr td.day {
+table.rides td.day {
   width: 20px;
   padding-left: 5px;
 }
-
 table.rides :nth-child(even) td.date {
   background:#eff;
 }
-
-
+table.rides td.user {
+  width: 75px;
+}
+table.rides td.cities {
+  width: 90px;
+}	
 table.rides tr td.gravatar {
   padding: 0px;
   vertical-align: top;
   margin-bottom: -5px;
   width: 15px;
 }
-
 table.rides tr td.ride {
- 
   vertical-align: center;
   text-align: left;
   font-size: 13px;
@@ -218,20 +215,20 @@ table.rides tr td.ride {
   padding-top: 0px;
   padding-bottom: 0px;
 }
-
 table.rides tr td.timestamp {
-
   width: 180px;
   text-align: right;
-  font-size: 85%;
+  font-size: 100%;
   color: #666;
 }
+/* rides table */
 
+
+/* profile */
 td.main {
   width: 70%;
   padding: 1em;
 }
-
 td.sidebar {
   width: 30%;
   padding: 1em;
@@ -239,18 +236,18 @@ td.sidebar {
   border: 2px solid #999;
   background: #52cccc;
 }
-
 .profile img.gravatar {
   border: 1px solid #999;
   margin-bottom: -15px;
 }
+/* profile */
+
 
 div.field, div.actions {
   text-align: bottom;
   margin-bottom: 7px;
   font-size: 14px;
 }
-
 select {
    background: transparent;
    padding: 5px;
@@ -282,8 +279,8 @@ div.fieldcenter {
 
 .field_with_errors {
   margin-top: 10px;
-  padding: 2px;
-  background-color: #ccf;
+  padding: 0px;
+  background-color: #dd6666;
   display: table;
 
   label {
@@ -291,18 +288,19 @@ div.fieldcenter {
   }
 }
 
+/* errors */
 #error_explanation {
-  width: 400px;
-  border: 1px dashed red;
-  padding: 7px;
-  padding-bottom: 1px;
-  margin-bottom: 20px;
-  background-color: #f0f0f0;
+  text-align: left;
+  width: 700px;
+  border: 1px solid red;
+  padding: 5px 20px 5px 20px;
+  margin: 0px 0px 20px 0px;
+  background-color: #dd6666	;
 
   h2 {
     text-align: left;
     font-weight: bold;
-    padding: 5px 5px 5px 15px;
+    padding: 10px 5px 5px 0px;
     font-size: 12px;
     margin: -7px;
     color: #fff;
@@ -310,8 +308,8 @@ div.fieldcenter {
 
   p {
     color: #333;
-    margin-bottom: 0;
-    padding: 5px;
+    margin-bottom: 0px;
+    padding: 0px 5px;
   }
 
   ul li {
@@ -319,6 +317,7 @@ div.fieldcenter {
     list-style: square;
   }
 }
+/* errors */
 
 ul.users {
   margin-top: 0em;
