@@ -64,15 +64,15 @@ class Ride < ActiveRecord::Base
     if criteria[:origin_city].present?
       if criteria[:miles_radius].to_i == 0 
         rides = @rides.search_origin(criteria)
-        if rides.empty?
-          criteria[:miles_radius] = 10
+        if rides.count < 10
+          criteria[:miles_radius] = 20
         else
           @rides = rides
         end
       end
       if criteria[:miles_radius].to_i > 0
         rides = @rides.search_near(criteria)
-        if rides.empty?
+        if rides.count < 10
           criteria[:miles_radius] += 10
           @rides = @rides.search_near(criteria)
         else
@@ -90,7 +90,6 @@ class Ride < ActiveRecord::Base
       if @rides.blank? && @flash_expand == false
       end
     end
-    # result = [@rides, criteria[:miles_radius]
     @rides
   end  
     

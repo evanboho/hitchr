@@ -167,8 +167,8 @@ table.rideform td {
 
 /* ride table */
 table.rides {
-  padding: 0em;
-  margin: 0em;
+  padding: 3px;
+  margin: 0px;
   font-size: 12px;
 }
 table.rides :nth-child(even) td, table.rides tr.even td {
