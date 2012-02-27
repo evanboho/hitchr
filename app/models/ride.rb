@@ -60,39 +60,25 @@ class Ride < ActiveRecord::Base
   # SEARCH(es)
   
   def self.search(criteria)
-    #@rides = Ride.scoped  Necessary? Better?
     @rides = Ride.where("datetime > ?", criteria[:start_date]).includes(:user)
     if criteria[:origin_city].present?
       if criteria[:miles_radius].to_i == 0 
         rides = @rides.search_origin(criteria)
         if rides.empty?
-          criteria[:miles_radius] = 15
-          @flash_expand = 1
+          criteria[:miles_radius] = 10
         else
           @rides = rides
         end
       end
       if criteria[:miles_radius].to_i > 0
-        pp "dg"
         rides = @rides.search_near(criteria)
         if rides.empty?
-          criteria[:miles_radius] += 15
-          @flash_expand = 1
+          criteria[:miles_radius] += 10
           @rides = @rides.search_near(criteria)
         else
           @rides = rides
         end
       end
-      @miles_radius = criteria[:miles_radius]
-      # if rides.empty?
-      #   pp "123"
-      #   criteria[:miles_radius] = 30 #TODO: make it expand the radius += 15 until finds cities
-      #   @rides = @rides.search_near(criteria)
-      #   @miles_radius = criteria[:miles_radius]
-      #   @flash_expand = true
-      # else
-      #   @rides = rides
-      # end
     end
     if criteria[:dest_city].present?
       rides_dest = @rides.search_destination(criteria)
@@ -104,6 +90,7 @@ class Ride < ActiveRecord::Base
       if @rides.blank? && @flash_expand == false
       end
     end
+    # result = [@rides, criteria[:miles_radius]
     @rides
   end  
     

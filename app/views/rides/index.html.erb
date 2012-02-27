@@ -5,6 +5,7 @@
 <%= render 'shared/ride_search' %>
 
 <% unless @rides.blank? %>
+<%= will_paginate %>
 <table class="round rides shadow_down">
     <%= render @rides %>
 </table>

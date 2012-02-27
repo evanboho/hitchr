@@ -22,14 +22,15 @@ class RidesController < ApplicationController
     if params[:search_origin].present?      
       criteria[:origin_city] = get_city(params[:search_origin])
       criteria[:origin_state] = get_state(params[:search_origin])
-      criteria[:miles_radius] ||= 0
+      # criteria[:miles_radius] ||= 0
     end
     criteria[:start_date] ||= Date.today
-    @rides = Ride.search(criteria)    
+    @rides = Ride.search(criteria)
       if @rides.blank?
         flash.now[:notice] = "No rides matched your results. Try increasing the search radius."
       end
-    @rides = @rides.reorder('datetime ASC') if !@rides.empty?
+    @miles_radius = 10
+    @rides = @rides.paginate(:page => params[:page], :per_page => 15).reorder('datetime ASC') if !@rides.empty?
   end
   
   def make_date
