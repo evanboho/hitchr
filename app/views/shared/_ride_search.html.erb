@@ -7,7 +7,7 @@
       <strong>From:</strong> <%= text_field_tag :search_origin, seed_city, 
                                                 :placeholder => "city, state" %> 
 	  <% @miles_radius ||= 0 %>
-      +/- <%= select_tag :miles_radius, options_for_select([0, 10, 25, 50, 100]) %>
+      +/- <%= select_tag(:miles_radius, options_for_select([0, 10, 25, 50, 100])) %>
       miles
    </td>
    <td>

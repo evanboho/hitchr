@@ -1,10 +1,11 @@
 ---
+chosen-sprite.png: chosen-sprite-c6c7a9a5e98998b29a41620864b54dee.png
 hitchr.png: hitchr-803109241507330a274dfa2f39c84171.png
 hitchr1.png: hitchr1-08f388a82f78b9f483d77d4bb6fe2f88.png
 logo.png: logo-bf81bd9f4ecc9c57e9f6fcef98029957.png
 rails.png: rails-782b548cc1ba7f898cdad2d9eb8420d2.png
-application.js: application-d9c9265f37866dabd92089f4c4f7dd97.js
-application.css: application-ee80be6ab6612d47dbe4a0d3e27aa4bf.css
+application.js: application-dbbc86def2c58518485174c6a54a5b12.js
+application.css: application-894c788d412b22bd40d37dba2b0522bb.css
 blueprint/plugins/buttons/icons/cross.png: blueprint/plugins/buttons/icons/cross-c7cecbf2f882d83d76089292bd4b0ddf.png
 blueprint/plugins/buttons/icons/key.png: blueprint/plugins/buttons/icons/key-8e3f74ccdd824651d925f0d4ae82b542.png
 blueprint/plugins/buttons/icons/tick.png: blueprint/plugins/buttons/icons/tick-64f108801155bd6b82a5471d038f25ea.png

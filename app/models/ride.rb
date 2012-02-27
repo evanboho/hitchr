@@ -60,27 +60,48 @@ class Ride < ActiveRecord::Base
   # SEARCH(es)
   
   def self.search(criteria)
-    @rides = Ride.where("datetime > ?", criteria[:start_date])
+    #@rides = Ride.scoped  Necessary? Better?
+    @rides = Ride.where("datetime > ?", criteria[:start_date]).includes(:user)
     if criteria[:origin_city].present?
       if criteria[:miles_radius].to_i == 0 
-        @rides = @rides.search_origin(criteria)
-        if @rides.blank?
-          criteria[:miles_radius] = 25 #TODO: make it expand the radius += 15 until finds cities
-          @rides = Ride.search_near(criteria)
-          @miles_radius = criteria[:miles_radius]
-          @flash_expand = true
-        end 
-      else
-        @rides = @rides.search_near(criteria)
+        rides = @rides.search_origin(criteria)
+        if rides.empty?
+          criteria[:miles_radius] = 15
+          @flash_expand = 1
+        else
+          @rides = rides
+        end
       end
+      if criteria[:miles_radius].to_i > 0
+        pp "dg"
+        rides = @rides.search_near(criteria)
+        if rides.empty?
+          criteria[:miles_radius] += 15
+          @flash_expand = 1
+          @rides = @rides.search_near(criteria)
+        else
+          @rides = rides
+        end
+      end
+      @miles_radius = criteria[:miles_radius]
+      # if rides.empty?
+      #   pp "123"
+      #   criteria[:miles_radius] = 30 #TODO: make it expand the radius += 15 until finds cities
+      #   @rides = @rides.search_near(criteria)
+      #   @miles_radius = criteria[:miles_radius]
+      #   @flash_expand = true
+      # else
+      #   @rides = rides
+      # end
     end
     if criteria[:dest_city].present?
-      
-      @rides_dest = @rides.search_destination(criteria)
-      if @rides_dest.blank?
+      rides_dest = @rides.search_destination(criteria)
+      if rides_dest.blank?
         @rides = @rides.search_direction(criteria)
       else
-        @rides = @rides_dest
+        @rides = rides_dest
+      end
+      if @rides.blank? && @flash_expand == false
       end
     end
     @rides
@@ -89,26 +110,27 @@ class Ride < ActiveRecord::Base
   
   def self.search_origin(criteria)
     if criteria[:origin_state]
-      @rides = @rides.where("originstate LIKE ?", "%#{criteria[:origin_state]}%")
+      rides_origin_state = @rides.where(:originstate => criteria[:origin_state])
     end
     if criteria[:origin_city] 
-      @rides = @rides.where("origin LIKE ?", "%#{criteria[:origin_city]}%")
+      rides_origin_state ||= @rides
+      rides_origin_state.where("origin LIKE ?", "%#{criteria[:origin_city]}%")
     end
   end
   
   def self.search_destination(criteria)
     if criteria[:dest_state]
-      @rides_dest = @rides.where("destinationstate LIKE ?", "%#{criteria[:dest_state]}")
+      rides_dest = @rides.where(:destinationstate => criteria[:dest_state])
     end
     if criteria[:dest_city]
-      @rides_dest ||= @rides
-      @rides_dest = @rides_dest.where("destination LIKE ?", "%#{criteria[:dest_city]}")
+      rides_dest ||= @rides
+      rides_dest.where("destination LIKE ?", "%#{criteria[:dest_city]}")
     end   
   end
   
   def self.search_near(criteria)
     @miles_radius = criteria[:miles_radius]  # necessary? How to set search to current miles_radius?
-    @rides = Ride.near("#{criteria[:origin_city]}, #{criteria[:origin_state]}", criteria[:miles_radius])
+    @rides.near("#{criteria[:origin_city]}, #{criteria[:origin_state]}", criteria[:miles_radius])
   end
   
   def self.search_direction(criteria)

@@ -3,54 +3,36 @@ class RidesController < ApplicationController
   before_filter :authenticate, :only => [:new, :create, :destroy]
   before_filter :get_ride, :only => [:show, :update]
   
+  def home
+    @rides = Ride.order('datetime ASC').limit(10)
+  end
+  
   def index
+    @flash_expand = 0
+    criteria = {}
     if params[:start_date].present?
       @start_date = make_date
-      criteria = {}
       criteria[:start_date] = @start_date
-      criteria[:miles_radius] = params[:miles_radius]
-      if params[:search_origin].present?      
-        criteria[:origin_city] = get_city(params[:search_origin])
-        criteria[:origin_state] = get_state(params[:search_origin])
-      end
-      if params[:search_dest].present?
-        criteria[:dest_city] = get_city(params[:search_dest])
-        criteria[:dest_state] = get_state(params[:search_dest])
-      end
-      @rides = Ride.search(criteria)     
+      criteria[:miles_radius] = params[:miles_radius].to_i
+    end
+    if params[:search_dest].present?
+      criteria[:dest_city] = get_city(params[:search_dest])
+      criteria[:dest_state] = get_state(params[:search_dest])
+    end
+    if params[:search_origin].present?      
+      criteria[:origin_city] = get_city(params[:search_origin])
+      criteria[:origin_state] = get_state(params[:search_origin])
+      criteria[:miles_radius] ||= 0
+    end
+    criteria[:start_date] ||= Date.today
+    @rides = Ride.search(criteria)    
       if @rides.blank?
         flash.now[:notice] = "No rides matched your results. Try increasing the search radius."
       end
-    else 
-      @rides = Ride.where("datetime > ?", Date.today)
-      @rides = @rides.reorder('datetime ASC')
-    end
-    if @flash_expand == true
-      flash.now[:notice] = "No starting cities matched your search. We expanded the radius to 25 miles around."
-    end
+    @rides = @rides.reorder('datetime ASC') if !@rides.empty?
   end
   
-    # unless params[:search_city].blank?
-    #   if params[:miles_radius].to_i > 0
-    #     @rides = Ride.search_near(search_start, params[:miles_radius])
-    #   else
-    #     @rides = Ride.city_state_search(search_start)
-    #   end
-    #   unless params[:search_dest].blank?
-    #     search_bearing = Geocoder::Calculations.bearing_between(search_start, params[:search_dest])
-    #     @rides = @rides.scoped( :conditions => { :bearing => (search_bearing - 35)..(search_bearing + 35) } )
-    #   end
-    # end
-  
-    # if !params[:search_dest].blank?
-    #   flash[:notice] = "Please enter a start city."
-    # end
-  
-    
-  
-  
   def make_date
-    
     Date.civil(params[:start_date][:year].to_i, params[:start_date][:month].to_i, params[:start_date][:day].to_i)
   end
 
