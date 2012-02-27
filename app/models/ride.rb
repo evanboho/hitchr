@@ -78,7 +78,6 @@ class Ride < ActiveRecord::Base
       
       @rides_dest = @rides.search_destination(criteria)
       if @rides_dest.blank?
-        if 
         @rides = @rides.search_direction(criteria)
       else
         @rides = @rides_dest
@@ -117,7 +116,7 @@ class Ride < ActiveRecord::Base
                                                             "#{criteria[:dest_city]}, #{criteria[:dest_state]}")
     @rides.where(:bearing => (search_bearing - 20)..(search_bearing + 20))
   end 
-
+  
   def clean_up_cities
   	self.origin = self.origin.try(:titleize).try(:strip) if self.origin_changed?
   	self.destination = self.destination.try(:titleize).try(:strip) if self.destination_changed?
