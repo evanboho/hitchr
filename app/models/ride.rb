@@ -78,6 +78,7 @@ class Ride < ActiveRecord::Base
       
       @rides_dest = @rides.search_destination(criteria)
       if @rides_dest.blank?
+        if 
         @rides = @rides.search_direction(criteria)
       else
         @rides = @rides_dest
@@ -112,41 +113,11 @@ class Ride < ActiveRecord::Base
   end
   
   def self.search_direction(criteria)
-    pp"fpp"
     search_bearing = Geocoder::Calculations.bearing_between("#{criteria[:origin_city]}, #{criteria[:origin_state]}", 
                                                             "#{criteria[:dest_city]}, #{criteria[:dest_state]}")
-    @rides.where(:bearing => (search_bearing-15)..(search_bearing+15))
+    @rides.where(:bearing => (search_bearing - 20)..(search_bearing + 20))
   end 
-    
-    
-    
-    # @rides = @rides.where("datetime > ?", criteria[:start_date])       
-        # unless @rides.empty?
-        #           if criteria[:dest_state]
-        #             @rides = @rides.where("destinationstate LIKE ?", "%#{criteria[:dest_state]}")
-        #           end
-        #           if criteria[:dest_city]
-        #             @rides = @rides.where("destination LIKE ?", "%#{criteria[:dest_city]}")  
-        #           end
-        #           if @rides.empty?
-        #             
-        #             x = 0
-        #             while @rides.nil? do                                                   
-        #               @rides = @rides.scoped( :conditions => { :bearing => (search_bearing - x)..(search_bearing + x) } )
-        #               x+= 5
-        #             end  
-        #             flash[:notice] = "We couldn't find any cities directly to #{criteria[:dest_city]}, so we expanded your search."
-        #           end
-        #         end  
-      
-    
-      # @rides = @rides.search_near(criteria[:origin_city], criteria[:miles_radius])
-    # end
 
-    # @rides
-    
-  
-  
   def clean_up_cities
   	self.origin = self.origin.try(:titleize).try(:strip) if self.origin_changed?
   	self.destination = self.destination.try(:titleize).try(:strip) if self.destination_changed?
