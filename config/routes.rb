@@ -3,6 +3,7 @@ Network::Application.routes.draw do
   resources :sessions, :only => [:new, :create, :destroy]
   resources :rides
   resources :profiles
+  resources :ride_options
   
   root :to => 'pages#home'
   match '/hotpants' => 'pages#home'
@@ -15,7 +16,6 @@ Network::Application.routes.draw do
   match '/contact' => "Pages#contact" 
   match '/about' => "Pages#about"
   match '/help' => "Pages#help"
-  
   
   # get '/sessions'
   

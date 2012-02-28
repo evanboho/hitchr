@@ -74,8 +74,12 @@ class RidesController < ApplicationController
 
   def update
     if @ride.update_attributes(params[:ride])
-      flash[:success] = "Ride updated."
-      redirect_to @ride
+      flash[:success] = "So far so good..."
+      unless @ride.ride_option.nil?
+        redirect_to edit_ride_option_path(@ride.ride_option)
+      else
+        redirect_to new_ride_option_path(@ride)
+      end
     else
       render 'edit'
     end
@@ -83,11 +87,11 @@ class RidesController < ApplicationController
   
   
   def create
-    @ride = Ride.new(params[:ride])
-    @ride.user_id = current_user.id
+    @ride = current_user.rides.build(params[:ride])
+    # @ride.user_id = current_user.id
     if @ride.save
-      flash[:success] = "Ride created!"
-      redirect_to ride_path(@ride)
+      flash[:success] = "So far so good..."
+      render new_ride_option_path
     else
       render 'new'
     end

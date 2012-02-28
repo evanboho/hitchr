@@ -6,7 +6,7 @@
       <li><%= link_to "post ride", new_ride_path %>
       <li><%= link_to "find ride", rides_path %>	
       <li><%= link_to "profile", current_user %>
-      <li><%= link_to "sign out", signout_path, :confirm => "Are you sure?", :method => :delete %>
+      <li><%= link_to "sign out", signout_path, :confirm => "Sign out?", :method => :delete %>
     </ul>
     <%= link_to (gravatar_for current_user, :size => 70), current_user %>
       <% else %>

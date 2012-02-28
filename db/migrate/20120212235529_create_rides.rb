@@ -11,7 +11,6 @@ class CreateRides < ActiveRecord::Migration
       t.float :bearing
       t.float :trip_distance
       t.datetime :datetime
-      t.string :message
       t.integer :user_id
 
       t.timestamps

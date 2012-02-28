@@ -142,7 +142,7 @@ table {
   width: 100%;
   padding: 5px;
   margin: 0px;
-  border: .1em solid black;
+  border: .1em solid gray;
 }
 table.shadow_down {
   box-shadow: 3px 5px 10px #999;
@@ -158,11 +158,43 @@ table.search {
   padding: 0px 3px;
 }
 table.rideform {
-  padding: 10px 30px;
+  padding: 30px 30px;
 }
-
 table.rideform td {
-  padding: 5px;
+  padding: 15px;
+  text-align: center;
+  width: 30%;
+}
+table.options {
+	text-align: center;
+	padding: 25px;
+}
+td.submit {
+	text-align: right;
+	width: 100%;
+}
+.left {
+	text-align: left;
+}
+.right {
+	text-align: right;
+	padding-top: 14px;
+}
+table.form td.center {
+	text-align: center;
+}
+.title {
+	font-size: 135%;
+	font-weight: bold;
+	text-align: left;
+}
+.center {
+	text-align: center;
+}
+table.plain {
+	border: 0px;
+	padding: 0px;
+	text-align: left;
 }
 
 /* ride table */
@@ -172,6 +204,9 @@ table.rides {
   font-size: 12px;
 }
 table.rides :nth-child(even) td, table.rides tr.even td {
+  background:#dee;
+}
+table.ride :nth-child(even) td, table.rides tr.even td {
   background:#dee;
 }
 table.rides td.date {
@@ -195,6 +230,7 @@ table.rides td.day {
 table.rides :nth-child(even) td.date {
   background:#eff;
 }
+
 table.rides td.user {
   width: 75px;
 }
@@ -220,6 +256,13 @@ table.rides tr td.timestamp {
   text-align: right;
   font-size: 100%;
   color: #666;
+}
+table.ride {
+  padding: 20px;
+  font-size: 100%;
+}
+table.ride td {
+	padding: 5px;
 }
 /* rides table */
 

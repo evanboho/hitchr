@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120221222127) do
+ActiveRecord::Schema.define(:version => 20120227205726) do
 
   create_table "profiles", :force => true do |t|
     t.date     "birthday"
@@ -28,9 +28,24 @@ ActiveRecord::Schema.define(:version => 20120221222127) do
 
   add_index "profiles", ["user_id"], :name => "index_profiles_on_user_id"
 
+  create_table "ride_options", :force => true do |t|
+    t.integer  "passenger_count"
+    t.integer  "cost"
+    t.string   "meeting_place"
+    t.string   "radio"
+    t.string   "music"
+    t.string   "smoking"
+    t.string   "bikes"
+    t.text     "message"
+    t.string   "passengers"
+    t.integer  "ride_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
   create_table "rides", :force => true do |t|
-    t.string   "origin" #city
-    t.string   "originstate" #state
+    t.string   "origin"
+    t.string   "originstate"
     t.float    "latitude"
     t.float    "longitude"
     t.string   "destination"

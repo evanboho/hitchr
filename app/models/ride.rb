@@ -19,6 +19,7 @@ class Ride < ActiveRecord::Base
   geocoded_by :origin
   
   belongs_to :user
+  has_one :ride_option, :dependent => :destroy
   
   validates :user, :presence => true
 

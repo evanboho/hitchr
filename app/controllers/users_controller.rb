@@ -32,9 +32,7 @@ class UsersController < ApplicationController
       flash[:success] = "welcome to hitchr!"
       redirect_to @user
     else
-      @title = "Sign up"
       render 'new'
-      # @user.password = :password
     end
   end
   
@@ -44,7 +42,6 @@ class UsersController < ApplicationController
       flash[:success] = "Profile updated."
       redirect_to @user
     else
-      @title = "Edit user"
       render 'edit'
     end
   end

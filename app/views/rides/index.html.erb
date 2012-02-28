@@ -1,14 +1,14 @@
 <% provide :title, "rides" %>
-
 <h3 class="rides">Rides</h3>
 
 <%= render 'shared/ride_search' %>
 
 <% unless @rides.blank? %>
-<%= will_paginate %>
+
 <table class="rides shadow_down round">
     <%= render @rides %>
 </table>
+<%= will_paginate %>
 <% else %>
 <br/>
 <h3 align="center"><%= link_to "See all rides", rides_path %></h3>	

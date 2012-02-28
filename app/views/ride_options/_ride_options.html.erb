@@ -1,0 +1,32 @@
+<tr>
+    <td>
+      <strong>Seats available:</strong>
+      <%= @ride.ride_option.passenger_count %>
+    </td>
+    <td>
+      <strong>Smoking:</strong>
+      <%= @ride.ride_option.smoking %>
+    </td>
+  </tr>
+  <tr>
+    <td class="right">
+      <strong>Radio preferences:</strong>
+    </td>
+    <td>
+      <%= @ride.ride_option.radio %>
+    </td> 
+    <td class="right">
+	 <strong>Space for bikes:</strong>
+	</td>
+    <td>
+      <%= @ride.ride_option.bikes %>
+    </td>
+  </tr>
+  <tr>
+	<td class="right">
+	  <strong>Music preferences:</strong>
+	</td>
+    <td>
+	  <%= @ride.ride_option.music%>
+	</td>
+  </tr>

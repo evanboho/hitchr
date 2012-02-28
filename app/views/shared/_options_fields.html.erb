@@ -1,0 +1,44 @@
+<%= render 'shared/error_messages_ride_options', :object => f.object %>  
+  <tr>
+    <td class="right">
+      <strong><%= f.label :passenger_count, "Seats available:"%></strong>
+    </td>
+    <td>
+      <%= f.select :passenger_count, options_for_select([1, 2, 3, 4, 5, 6, 7, 8], @ride_option.passenger_count) %> 
+    </td>
+    <td class="right">
+      <strong><%= f.label :smoking, "Smoking:" %></strong>
+    </td>
+    <td>
+      <%= f.select :smoking, options_for_select(
+					["", "Not in the car", "OK in the car", "I smoke in the car", "No smoking at all ever."], @ride_option.smoking) %>
+    </td>
+  </tr>
+  <tr>
+    <td class="right">
+      <strong>Radio preferences:</strong>
+    </td>
+    <td>
+      <%= f.select :radio, options_for_select(["", "Music", "NPR", "Talk Radio", "Conversation"], @ride_option.radio) %>
+    </td> 
+    <td class="right">
+	 <strong>Space for bikes:</strong>
+	</td>
+    <td>
+      <%= f.select(:bikes, options_for_select(["No bikes", "1 bike in the trunk", "1 bike on a bike rack", "2 bikes on a bike rack", "3 bikes on a bike rack"], @ride_option.bikes)) %>
+    </td>
+  </tr>
+  <tr>
+	<td class="right">
+	  <strong>Music preferences:</strong>
+	</td>
+    <td>
+	  <%= f.text_field :music %>
+	</td>
+	<td class="right">
+	  <strong>How much?</strong>
+	</td>
+    <td>
+	  $<%= f.select(:cost, options_for_select([0, 5, 10, 15, 20], @ride_option.cost))%>
+	</td>
+  </tr>

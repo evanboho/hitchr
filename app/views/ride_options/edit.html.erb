@@ -1,0 +1,16 @@
+<%= form_for @ride_option do |f| %>
+  <table class="options form round shadow_down">
+    <%= render '/shared/options_fields', :f => f %>
+    <tr>
+	  <td>
+	  </td>
+	  <td>
+	  </td>
+	  <td>
+	  </td>
+	  <td align="right">
+        <%= f.submit "finish" %>
+      </td>
+    </tr>
+  </table>
+<% end %>

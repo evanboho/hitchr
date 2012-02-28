@@ -1,19 +1,35 @@
 <%= provide(:title, "#{@ride.origin} to #{@ride.destination}") %>
-<table class="round shadow_down">
+<table class="round shadow_down ride">
+  <tr><td colspan="5">
+  <table class="plain">
   <tr>
-    <td colspan="2">
-      <%= gravatar_for @ride.user, :size => 50 %>
-      <h3><%= username(@ride.user) %></h3>
+    <td colspan="1">
+      
+      <%= link_to (gravatar_for @ride.user, :size => 75), @ride.user %>
+      <h3><%= link_to username(@ride.user), @ride.user %></h3>
     </td>
-    <td colspan="2">
-      <%= link_to "Back to all rides", rides_path %>
+    <td class="title" colspan="1">
+	  <%= "#{@ride.origin}, #{@ride.originstate}" %>
+	  to
+	  <%= "#{@ride.destination}, #{@ride.destinationstate}" %>
+	</td>
+	<td class="title">
+    <% unless @ride.ride_option.nil? %>
+	  $<%= @ride.ride_option.cost  %>
+    <% end %>
+    <td colspan="1">
+      <%= link_to "see all rides", rides_path %><br/>
+      <% if @ride.user == current_user %>
+        <%= link_to "edit", edit_ride_path(@ride) %><br/>
+	    <%= link_to "delete", @ride, :confirm => "Are you sure?", :method => :delete %>
+      <% end %>
     </td>
   </tr>
-    <td colspan="2">Driving ~<%= @ride.trip_distance.round %> miles 
+  </table>
+  </td></tr>
+    <td colspan="2">~<%= @ride.trip_distance.round %> miles 
     <strong><%= compass_points(@ride.bearing) %>
     </strong>from
-      <%= "#{@ride.origin}, #{@ride.originstate} 
-                       to #{@ride.destination}, #{@ride.destinationstate}"%>
   on <%= @ride.datetime.strftime("%a, %b %d at %I:%M") %>
           <% if @ride.datetime.hour < 12 %>
           am.
@@ -21,21 +37,24 @@
           pm.
           <% end %></strong>
     </td>
-    <% if @ride.user == current_user %>
+    
       <td>
-        <%= link_to "edit", edit_ride_path(@ride) %>
-      </td>
+       </td> 
       <td>
-        <%= link_to "delete", @ride, :confirm => "Are you sure?", :method => :delete %>
-    <% end %>
+        
   </tr>
   <tr><td><br/></td></tr>
+  <% unless @ride.ride_option.nil? %>
+    <%= render '/ride_options/ride_options' %>
+  <% end %>
+
+
   <% latlong = Geocoder.coordinates(@ride.destination + ' ' + @ride.destinationstate) %>
    <tr><td><strong>Start</td><td><strong>End</td></tr>
   <tr>
-    <td><%= image_tag "http://maps.google.com/maps/api/staticmap?size=225x150&sensor=false&zoom=7&markers=#{@ride.latitude}%2C#{@ride.longitude}" %>
+    <td colspan="2"><%= image_tag "http://maps.google.com/maps/api/staticmap?size=225x150&sensor=false&zoom=7&markers=#{@ride.latitude}%2C#{@ride.longitude}" %>
     </td>
-    <td>
+    <td colspan="2">
     
     <%= image_tag "http://maps.google.com/maps/api/staticmap?size=225x150&sensor=false&zoom=7&markers=#{latlong.first}%2C#{latlong.last}" %>
     </td>

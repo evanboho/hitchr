@@ -6,18 +6,19 @@
       <%= "Where to, #{current_user.firstname.humanize}?"%></h3>
     </td>
   </tr>
-
-<%= form_for @ride do |f| %>
-  <div align="center">
-  <%= render 'shared/ride_form', :f => f %>
-  </div>
+</table>
+<table class="rideform round shadow_down">
+  <%= form_for @ride do |f| %>
+    <%= render 'shared/ride_form', :f => f %>
+  
   <tr>
-  <td></td><td>
-  <div class="actions">
-    <%= f.submit "Post Ride" %>
-  </div>
+	<td>
+    </td>
+	<td colspan="2">
+      <div class="actions">
+        <%= f.submit "continue" %>
+      </div>
+    </td>
   </tr>
-  </td>
-  </table>
-  </table>
-<% end %>
+  <% end %>
+</table>
